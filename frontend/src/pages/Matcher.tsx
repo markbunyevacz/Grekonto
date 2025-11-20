@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, ZoomIn, RotateCw, Check, Search, Trash2, X, Loader2 } from 'lucide-react';
+import { ArrowLeft, ZoomIn, RotateCw, Check, Search, Trash2, X, Loader2, CheckCircle } from 'lucide-react';
 import clsx from 'clsx';
 
 interface Task {
@@ -34,6 +34,8 @@ export default function Matcher() {
   const [loading, setLoading] = useState(true);
   const [showManualSearch, setShowManualSearch] = useState(false);
   const [manualSearchQuery, setManualSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     if (!taskId) return;
@@ -90,6 +92,22 @@ export default function Matcher() {
       navigate('/dashboard');
     } catch (error) {
       alert("Hiba történt a mentéskor.");
+    }
+  };
+
+  const handleManualSearch = async () => {
+    if (!manualSearchQuery.trim()) return;
+    setIsSearching(true);
+    try {
+      const res = await fetch(`/api/search?q=${encodeURIComponent(manualSearchQuery)}`);
+      if (res.ok) {
+        const data = await res.json();
+        setSearchResults(data);
+      }
+    } catch (error) {
+      console.error("Search failed", error);
+    } finally {
+      setIsSearching(false);
     }
   };
 
@@ -252,8 +270,11 @@ export default function Matcher() {
                   className="flex-1 px-4 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500"
                   placeholder="Szállító neve vagy összeg..."
                 />
-                <button className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium">
-                  Keresés
+                <button 
+                  onClick={handleManualSearch}
+                  className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium"
+                >
+                  {isSearching ? 'Keresés...' : 'Keresés'}
                 </button>
               </div>
             </div>
@@ -262,16 +283,21 @@ export default function Matcher() {
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Találatok</p>
               <div className="space-y-2">
                 {/* Mock Results */}
-                {[1, 2].map((i) => (
+                {searchResults.length === 0 && (
+                  <div className="text-center py-8 text-slate-500">
+                    Nincs találat a keresésra.
+                  </div>
+                )}
+                {searchResults.map((result, i) => (
                   <div key={i} className="flex items-center p-4 bg-white border border-slate-200 rounded-lg hover:border-indigo-500 cursor-pointer group">
                     <div className="flex-1">
                       <div className="flex justify-between mb-1">
-                        <span className="font-bold text-slate-900">MVM Next Zrt.</span>
-                        <span className="font-medium text-slate-900">14.200 Ft</span>
+                        <span className="font-bold text-slate-900">{result.vendor}</span>
+                        <span className="font-medium text-slate-900">{result.amount} {result.currency}</span>
                       </div>
                       <div className="flex justify-between text-sm text-slate-500">
-                        <span>2024.11.15</span>
-                        <span>Sorszám: ...888</span>
+                        <span>{result.date}</span>
+                        <span>Sorszám: {result.invoice_id}</span>
                       </div>
                     </div>
                     <button className="ml-4 opacity-0 group-hover:opacity-100 bg-indigo-50 text-indigo-600 px-3 py-1 rounded text-sm font-medium">

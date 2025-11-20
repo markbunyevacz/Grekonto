@@ -1,5 +1,11 @@
 {
   "scriptFile": "__init__.py",
+  "retry": {
+    "strategy": "exponentialBackoff",
+    "maxRetryCount": 3,
+    "minimumInterval": "00:00:10",
+    "maximumInterval": "00:01:00"
+  },
   "bindings": [
     {
       "name": "myblob",

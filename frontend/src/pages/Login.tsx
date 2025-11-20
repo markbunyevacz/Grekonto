@@ -1,12 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { ShieldCheck } from 'lucide-react';
+import { useMsal } from '@azure/msal-react';
+import { loginRequest } from '../authConfig';
 
 export default function Login() {
   const navigate = useNavigate();
+  const { instance } = useMsal();
 
-  const handleLogin = () => {
-    // Mock login
-    navigate('/dashboard');
+  const handleLogin = async () => {
+    try {
+      await instance.loginPopup(loginRequest);
+      navigate('/dashboard');
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

@@ -8,26 +8,28 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request to upload a document.')
 
     try:
-        # Check if the request is multipart/form-data
-        # Azure Functions Python worker has limited support for parsing multipart/form-data directly in some versions,
-        # but let's assume we can get the file from req.files or parse the body.
-        # Standard way in v2 model or using libraries.
-        # For simplicity in this environment, let's assume the body IS the file content and filename is in headers
-        # or use a simple JSON with base64 if multipart is hard.
-        
-        # However, standard way:
-        # file = req.files.get('file')
-        # But req.files is not always available in the default HttpRequest object depending on the worker version.
-        
-        # Let's try to use the body directly if it's a binary upload, or check headers.
-        filename = req.headers.get('x-filename')
-        if not filename:
-             return func.HttpResponse("Please provide x-filename header", status_code=400)
+        filename = None
+        file_content = None
 
-        file_content = req.get_body()
+        # 1. Try to get file from multipart/form-data (req.files)
+        if req.files:
+            for name, f in req.files.items():
+                filename = f.filename
+                file_content = f.stream.read()
+                break
         
+        # 2. Fallback: Check if body is binary and filename is in headers (Legacy support)
         if not file_content:
-             return func.HttpResponse("File content is empty", status_code=400)
+            filename_header = req.headers.get('x-filename')
+            if filename_header:
+                filename = filename_header
+                file_content = req.get_body()
+
+        if not file_content or not filename:
+             return func.HttpResponse(
+                 "Please upload a file using multipart/form-data (field 'file') or provide 'x-filename' header with binary body.", 
+                 status_code=400
+            )
 
         # Upload to Blob Storage
         # We use the same container as the timer trigger: "raw-documents"

@@ -1,11 +1,33 @@
-import { Search, CheckCircle, AlertTriangle, Trash2 } from 'lucide-react';
+import { Search, CheckCircle, AlertTriangle, Trash2, Clock } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
+interface LogEntry {
+  time: string;
+  file: string;
+  client: string;
+  result: string;
+  user: string;
+  message: string;
+}
 
 export default function History() {
-  const logs = [
-    { time: 'Ma 10:05', file: 'INV_882.pdf', client: 'MVM Next', result: 'MATCH', user: 'Orbita' },
-    { time: 'Ma 09:45', file: 'scan002.jpg', client: 'Praktiker', result: 'MANUAL', user: 'AI' },
-    { time: 'Ma 08:00', file: 'menu.pdf', client: '-', result: 'TRASH', user: 'Orbita' },
-  ];
+  const [logs, setLogs] = useState<LogEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/get_history')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setLogs(data);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch history", err);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div className="p-8 max-w-6xl mx-auto">
@@ -33,31 +55,46 @@ export default function History() {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {logs.map((log, idx) => (
-              <tr key={idx} className="hover:bg-slate-50">
-                <td className="px-6 py-4 text-slate-600">{log.time}</td>
-                <td className="px-6 py-4 font-medium text-slate-900">{log.file}</td>
-                <td className="px-6 py-4 text-slate-600">{log.client}</td>
-                <td className="px-6 py-4">
-                  {log.result === 'MATCH' && (
-                    <span className="inline-flex items-center gap-1 text-emerald-600 text-xs font-medium">
-                      <CheckCircle size={12} /> Párosítva
-                    </span>
-                  )}
-                  {log.result === 'MANUAL' && (
-                    <span className="inline-flex items-center gap-1 text-amber-600 text-xs font-medium">
-                      <AlertTriangle size={12} /> Kézi
-                    </span>
-                  )}
-                  {log.result === 'TRASH' && (
-                    <span className="inline-flex items-center gap-1 text-rose-600 text-xs font-medium">
-                      <Trash2 size={12} /> Elvetve
-                    </span>
-                  )}
-                </td>
-                <td className="px-6 py-4 text-slate-500 text-xs">{log.user}</td>
+            {loading ? (
+              <tr>
+                <td colSpan={5} className="px-6 py-4 text-center text-slate-500">Betöltés...</td>
               </tr>
-            ))}
+            ) : logs.length === 0 ? (
+              <tr>
+                <td colSpan={5} className="px-6 py-4 text-center text-slate-500">Nincs megjeleníthető adat.</td>
+              </tr>
+            ) : (
+              logs.map((log, idx) => (
+                <tr key={idx} className="hover:bg-slate-50">
+                  <td className="px-6 py-4 text-slate-600">{log.time}</td>
+                  <td className="px-6 py-4 font-medium text-slate-900">{log.file}</td>
+                  <td className="px-6 py-4 text-slate-600">{log.client}</td>
+                  <td className="px-6 py-4">
+                    {log.result === 'MATCH' && (
+                      <span className="inline-flex items-center gap-1 text-emerald-600 text-xs font-medium">
+                        <CheckCircle size={12} /> Párosítva
+                      </span>
+                    )}
+                    {(log.result === 'MANUAL' || log.result === 'MANUAL_REVIEW_REQUIRED') && (
+                      <span className="inline-flex items-center gap-1 text-amber-600 text-xs font-medium">
+                        <AlertTriangle size={12} /> Kézi
+                      </span>
+                    )}
+                    {log.result === 'PROCESSING_STARTED' && (
+                      <span className="inline-flex items-center gap-1 text-blue-600 text-xs font-medium">
+                        <Clock size={12} /> Feldolgozás
+                      </span>
+                    )}
+                    {log.result === 'TRASH' && (
+                      <span className="inline-flex items-center gap-1 text-rose-600 text-xs font-medium">
+                        <Trash2 size={12} /> Elvetve
+                      </span>
+                    )}
+                  </td>
+                  <td className="px-6 py-4 text-slate-500 text-xs">{log.user}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

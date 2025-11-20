@@ -142,11 +142,7 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' = {
     name: 'Free'
     tier: 'Free'
   }
-  properties: {
-    repositoryUrl: 'https://github.com/Grekonto/grekonto-ai' // Placeholder
-    branch: 'main'
-    provider: 'GitHub'
-  }
+  properties: {}
 }
 
 output storageAccountName string = storageAccountName
