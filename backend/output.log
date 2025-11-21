@@ -1,0 +1,11 @@
+'local.settings.json' found in root directory (C:\Users\Admin\.cursor\Grekonto\backend).
+Resolving worker runtime to 'python'.
+Found Python version 3.14.0 (py).
+
+
+Azure Functions Core Tools
+Core Tools Version:       4.5.0+e74aae22c9630777c9f58354f290a6e214218546 (64-bit)
+Function Runtime Version: 4.1044.400.25520
+
+[2025-11-21T20:44:26.662Z] Attempt to remove module cache for google._upb but failed with 'google'. Using the original module cache.
+[2025-11-21T20:44:26.662Z] Attempt to remove module cache for google._upb but failed with 'google'. Using the original module cache.

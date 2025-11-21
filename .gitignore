@@ -1,0 +1,35 @@
+# Azure Functions & Azurite (Local Storage Emulator)
+__blobstorage__/
+__queuestorage__/
+__azurite_*
+.azurite/
+.azurite_mem/
+AzuriteConfig
+azurite.log
+debug.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.env
+.pytest_cache/
+.mypy_cache/
+
+# Azure Functions Local Settings
+local.settings.json
+backend/local.settings.json
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
