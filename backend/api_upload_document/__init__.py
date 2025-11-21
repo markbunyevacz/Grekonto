@@ -5,6 +5,7 @@ from ..shared import storage_client
 import datetime
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
+    print("DEBUG: api_upload_document hit")
     logging.info('Python HTTP trigger function processed a request to upload a document.')
 
     try:

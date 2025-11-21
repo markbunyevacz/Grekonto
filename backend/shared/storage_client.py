@@ -7,7 +7,11 @@ def upload_to_blob(container_name, blob_name, data):
     Uploads data to Azure Blob Storage.
     """
     try:
-        connect_str = os.getenv('AzureWebJobsStorage')
+        # connect_str = os.getenv('AzureWebJobsStorage')
+        connect_str = "UseDevelopmentStorage=true"
+        print(f"DEBUG: AzureWebJobsStorage (Hardcoded): '{connect_str}'")
+        logging.info(f"DEBUG: AzureWebJobsStorage (Hardcoded): '{connect_str}'")
+        
         if not connect_str:
             logging.warning("AzureWebJobsStorage env var not found. Skipping blob upload (Local Dev Mode).")
             return
