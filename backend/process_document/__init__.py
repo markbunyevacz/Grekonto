@@ -8,6 +8,7 @@ from azure.core.credentials import AzureKeyCredential
 from ..shared import matching_engine
 from ..shared import table_service
 from ..shared import storage_client
+from ..shared.aoc_client import AOCClient
 
 def main(myblob: func.InputStream):
     logging.info(f"Python blob trigger function processed blob \n"
@@ -93,22 +94,43 @@ def main(myblob: func.InputStream):
         }
 
         if match_result['status'] == 'GREEN':
-            logging.info("Auto-uploading to AOC (Mock)...")
-            # In a real scenario, we would call the AOC API here.
-            # For now, we can mark it as COMPLETED or just log it.
-            task_data['status'] = 'COMPLETED'
-            table_service.save_task(task_data)
+            logging.info("Auto-uploading to AOC...")
             
-            table_service.log_audit_event(
-                event_type="MATCH",
-                message=f"Document matched automatically with confidence {match_result.get('confidence', 0)}",
-                related_item_id=blob_name,
-                client_name=extracted_data.get("vendor", "-")
-            )
+            # Call AOC API
+            aoc_client = AOCClient()
+            upload_success = False
             
-            # Zero Data Retention: Delete the blob after successful processing
-            logging.info(f"Deleting blob {blob_name} from {container_name}...")
-            storage_client.delete_blob(container_name, blob_name)
+            # If we have a match_id (invoice internal ID in AOC), link it
+            if match_result.get('match_id'):
+                upload_success = aoc_client.upload_invoice_link(str(match_result['match_id']), document_url)
+            
+            if upload_success:
+                logging.info("Successfully linked document to AOC invoice.")
+                task_data['status'] = 'COMPLETED'
+                table_service.save_task(task_data)
+
+                table_service.log_audit_event(
+                    event_type="MATCH",
+                    message=f"Document matched automatically. AOC Upload: Success",
+                    related_item_id=blob_name,
+                    client_name=extracted_data.get("vendor", "-")
+                )
+                
+                # Zero Data Retention: Delete the blob after successful processing
+                logging.info(f"Deleting blob {blob_name} from {container_name}...")
+                storage_client.delete_blob(container_name, blob_name)
+            else:
+                logging.error("Failed to link document to AOC. Keeping task as GREEN for manual review.")
+                # Save as GREEN so it appears in manual review or we can treat it as error
+                table_service.save_task(task_data)
+                
+                table_service.log_audit_event(
+                    event_type="MATCH_UPLOAD_FAILED",
+                    message=f"Document matched but AOC upload failed.",
+                    related_item_id=blob_name,
+                    client_name=extracted_data.get("vendor", "-")
+                )
+
         else:
             logging.info("Saving task for manual review...")
             table_service.save_task(task_data)

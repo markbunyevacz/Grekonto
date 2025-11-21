@@ -7,14 +7,11 @@ def upload_to_blob(container_name, blob_name, data):
     Uploads data to Azure Blob Storage.
     """
     try:
-        # connect_str = os.getenv('AzureWebJobsStorage')
-        connect_str = "UseDevelopmentStorage=true"
-        print(f"DEBUG: AzureWebJobsStorage (Hardcoded): '{connect_str}'")
-        logging.info(f"DEBUG: AzureWebJobsStorage (Hardcoded): '{connect_str}'")
+        connect_str = os.getenv('AzureWebJobsStorage')
         
         if not connect_str:
-            logging.warning("AzureWebJobsStorage env var not found. Skipping blob upload (Local Dev Mode).")
-            return
+            logging.warning("AzureWebJobsStorage env var not found. Using development storage.")
+            connect_str = "UseDevelopmentStorage=true"
 
         blob_service_client = BlobServiceClient.from_connection_string(connect_str)
         container_client = blob_service_client.get_container_client(container_name)
@@ -37,7 +34,8 @@ def generate_sas_url(container_name, blob_name):
     try:
         connect_str = os.getenv('AzureWebJobsStorage')
         if not connect_str:
-            return "https://via.placeholder.com/400x600.png?text=Local+Dev+Mode"
+             # Fallback for dev
+             connect_str = "UseDevelopmentStorage=true"
 
         blob_service_client = BlobServiceClient.from_connection_string(connect_str)
         blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
@@ -66,8 +64,8 @@ def delete_blob(container_name, blob_name):
     try:
         connect_str = os.getenv('AzureWebJobsStorage')
         if not connect_str:
-            logging.warning("AzureWebJobsStorage env var not found. Skipping blob deletion (Local Dev Mode).")
-            return
+             # Fallback for dev
+             connect_str = "UseDevelopmentStorage=true"
 
         blob_service_client = BlobServiceClient.from_connection_string(connect_str)
         blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
@@ -80,6 +78,3 @@ def delete_blob(container_name, blob_name):
             
     except Exception as e:
         logging.error(f"Failed to delete blob: {str(e)}")
-        # We might not want to raise here to avoid failing the whole function if cleanup fails,
-        # but for "Zero Data Retention" strictness, maybe we should.
-        # For now, just log error.

@@ -1,12 +1,12 @@
 export const msalConfig = {
   auth: {
-    clientId: "ENTER_CLIENT_ID_HERE", // This should be replaced with the actual Client ID from Azure AD
-    authority: "https://login.microsoftonline.com/common", // Or your tenant ID
+    clientId: import.meta.env.VITE_AZURE_AD_CLIENT_ID || "ENTER_CLIENT_ID_HERE",
+    authority: "https://login.microsoftonline.com/common",
     redirectUri: window.location.origin,
   },
   cache: {
-    cacheLocation: "sessionStorage", // This configures where your cache will be stored
-    storeAuthStateInCookie: false, // Set this to "true" if you are having issues on IE11 or Edge
+    cacheLocation: "sessionStorage",
+    storeAuthStateInCookie: false,
   },
 };
 
