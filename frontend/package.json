@@ -9,7 +9,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "e2e": "playwright test",
-    "e2e:ui": "playwright test --ui"
+    "e2e:ui": "playwright test --ui",
+    "e2e:report": "playwright show-report",
+    "e2e:report:open": "powershell -ExecutionPolicy Bypass -File ./e2e/open-report.ps1"
   },
   "dependencies": {
     "@azure/msal-browser": "^4.26.2",

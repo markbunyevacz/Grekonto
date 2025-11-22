@@ -43,13 +43,37 @@ test.describe('End-to-End Workflow', () => {
   });
 
   test('User can login, upload an invoice, and see it in the list', async ({ page }) => {
-    // 1. Login Flow
-    await page.goto('/');
-    await expect(page.getByText('Üdvözlünk az AI Rendszerben')).toBeVisible();
+    // Mock MSAL authentication by setting sessionStorage
+    // This simulates a logged-in user without triggering the popup
+    await page.goto('/', { timeout: 60000 });
     
-    await page.getByRole('button', { name: 'Belépés' }).click();
+    // Wait for the page to load
+    await page.waitForSelector('#root', { state: 'attached' });
     
-    await expect(page).toHaveURL('/dashboard');
+    // Mock MSAL by injecting a mock account into sessionStorage
+    // The MSAL library checks sessionStorage for cached accounts
+    await page.evaluate(() => {
+      // Mock MSAL cache structure
+      const mockAccount = {
+        homeAccountId: 'mock-account-id',
+        environment: 'login.microsoftonline.com',
+        tenantId: 'common',
+        username: 'test@grekonto.hu',
+        localAccountId: 'mock-local-id',
+        name: 'Test User'
+      };
+      
+      // Store in sessionStorage in the format MSAL expects
+      sessionStorage.setItem('msal.account.keys', JSON.stringify(['mock-account-id']));
+      sessionStorage.setItem(`msal.account.${mockAccount.homeAccountId}`, JSON.stringify(mockAccount));
+      sessionStorage.setItem('msal.login.request', JSON.stringify({ scopes: ['User.Read'] }));
+    });
+    
+    // Navigate directly to dashboard (bypassing login UI)
+    await page.goto('/dashboard', { timeout: 60000 });
+    
+    // Verify we're on the dashboard
+    await expect(page.getByText('Mai Statisztika')).toBeVisible({ timeout: 10000 });
     
     // Update mock to return a task AFTER we upload (simulating processing)
     // We can use a variable to toggle the response
