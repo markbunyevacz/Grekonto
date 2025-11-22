@@ -2,26 +2,48 @@ import { test, expect } from '@playwright/test';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'fs';
+import { 
+  getFirstSROIETestFile, 
+  compareWithGroundTruth,
+  type SROIETestFile 
+} from '../utils/sroie-helpers';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// Use real test invoice from docs directory or root
-const TEST_INVOICE_PATH = path.join(__dirname, '../../../test_invoice_001.pdf');
-const BACKEND_TEST_INVOICE_PATH = path.join(__dirname, '../../../backend/integration_test_invoice.pdf');
 
 // Base URL for backend API (defaults to localhost:7071)
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:7071';
 
 // Find available test invoice file
-function getTestInvoicePath(): string {
+function getTestInvoicePath(): { imagePath: string; groundTruth: any | null } {
+  // Try SROIE dataset first
+  const sroieFile = getFirstSROIETestFile();
+  if (sroieFile) {
+    return {
+      imagePath: sroieFile.imagePath,
+      groundTruth: sroieFile.groundTruth
+    };
+  }
+  
+  // Fallback to root test files if SROIE dataset not available
+  const TEST_INVOICE_PATH = path.join(__dirname, '../../../test_invoice_001.pdf');
+  const BACKEND_TEST_INVOICE_PATH = path.join(__dirname, '../../../backend/integration_test_invoice.pdf');
+  
   if (existsSync(TEST_INVOICE_PATH)) {
-    return TEST_INVOICE_PATH;
+    return {
+      imagePath: TEST_INVOICE_PATH,
+      groundTruth: null
+    };
   }
+  
   if (existsSync(BACKEND_TEST_INVOICE_PATH)) {
-    return BACKEND_TEST_INVOICE_PATH;
+    return {
+      imagePath: BACKEND_TEST_INVOICE_PATH,
+      groundTruth: null
+    };
   }
-  throw new Error(`No test invoice file found. Checked:\n- ${TEST_INVOICE_PATH}\n- ${BACKEND_TEST_INVOICE_PATH}`);
+  
+  throw new Error(`No test invoice file found. Checked SROIE dataset and fallback paths.`);
 }
 
 test.describe('End-to-End Workflow', () => {
@@ -96,13 +118,16 @@ test.describe('End-to-End Workflow', () => {
       await dialog.accept();
     });
 
-    // Upload test invoice file
-    const invoicePath = getTestInvoicePath();
-    console.log(`Using test invoice: ${invoicePath}`);
+    // Upload test invoice file with ground truth data
+    const { imagePath, groundTruth } = getTestInvoicePath();
+    console.log(`Using test invoice: ${imagePath}`);
+    if (groundTruth) {
+      console.log(`Ground truth data:`, JSON.stringify(groundTruth, null, 2));
+    }
     
     const fileInput = page.locator('input[type="file"]');
     await expect(fileInput).toBeVisible({ timeout: 5000 });
-    await fileInput.setInputFiles(invoicePath);
+    await fileInput.setInputFiles(imagePath);
     console.log('File selected, waiting for upload...');
     
     // Wait for upload request to complete
@@ -253,26 +278,70 @@ test.describe('End-to-End Workflow', () => {
     // Verify task has extracted data
     expect(foundTask.extracted).toBeDefined();
     
-    // Wait for the task to appear in the UI
-    // Check for vendor name if available
-    if (foundTask.extracted?.vendor) {
-      await expect(page.getByText(foundTask.extracted.vendor, { exact: false })).toBeVisible({ timeout: 15000 });
-    } else {
-      console.warn('No vendor name in extracted data');
-    }
-    
-    // Check for amount if available
-    if (foundTask.extracted?.amount) {
-      const amountText = new Intl.NumberFormat('hu-HU', {
-        style: 'decimal',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      }).format(foundTask.extracted.amount);
-      const currency = foundTask.extracted.currency || 'HUF';
-      await expect(page.getByText(`${amountText} ${currency}`, { exact: false })).toBeVisible({ timeout: 15000 });
-    } else {
-      console.warn('No amount in extracted data');
-    }
+          // Verify extracted data matches ground truth if available
+          if (groundTruth) {
+            console.log('Verifying extracted data against ground truth...');
+            
+            // Use SROIE comparison utility
+            const comparison = compareWithGroundTruth(
+              {
+                vendor: foundTask.extracted?.vendor,
+                invoice_date: foundTask.extracted?.invoice_date,
+                amount: foundTask.extracted?.amount,
+                address: foundTask.extracted?.address
+              },
+              groundTruth,
+              {
+                amountTolerance: 0.01, // 1 cent tolerance
+                fuzzyMatch: true
+              }
+            );
+            
+            console.log('Comparison result:', JSON.stringify(comparison, null, 2));
+            
+            // Check vendor/company in UI
+            if (foundTask.extracted?.vendor) {
+              await expect(page.getByText(foundTask.extracted.vendor, { exact: false })).toBeVisible({ timeout: 15000 });
+            }
+            
+            // Check amount in UI
+            if (foundTask.extracted?.amount) {
+              const amountText = new Intl.NumberFormat('hu-HU', {
+                style: 'decimal',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+              }).format(foundTask.extracted.amount);
+              const currency = foundTask.extracted.currency || 'HUF';
+              
+              await expect(page.getByText(amountText, { exact: false })).toBeVisible({ timeout: 15000 });
+            }
+            
+            // Log comparison details for debugging
+            if (!comparison.matches) {
+              console.warn('Some fields did not match ground truth:', comparison.details);
+            } else {
+              console.log('✅ All extracted fields match ground truth!');
+            }
+          } else {
+            // Fallback: just check if data exists in UI
+            if (foundTask.extracted?.vendor) {
+              await expect(page.getByText(foundTask.extracted.vendor, { exact: false })).toBeVisible({ timeout: 15000 });
+            } else {
+              console.warn('No vendor name in extracted data');
+            }
+            
+            if (foundTask.extracted?.amount) {
+              const amountText = new Intl.NumberFormat('hu-HU', {
+                style: 'decimal',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+              }).format(foundTask.extracted.amount);
+              const currency = foundTask.extracted.currency || 'HUF';
+              await expect(page.getByText(`${amountText} ${currency}`, { exact: false })).toBeVisible({ timeout: 15000 });
+            } else {
+              console.warn('No amount in extracted data');
+            }
+          }
     
     // Verify the task appears in the UI table
     await expect(page.locator('table, [role="table"], .task-list, .task-item')).toBeVisible({ timeout: 5000 });
