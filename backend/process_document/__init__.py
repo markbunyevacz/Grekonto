@@ -9,36 +9,70 @@ from ..shared import matching_engine
 from ..shared import table_service
 from ..shared import storage_client
 from ..shared.aoc_client import AOCClient
+from ..shared import sroie_utils
 
 def main(myblob: func.InputStream):
-    logging.info(f"Python blob trigger function processed blob \n"
-                 f"Name: {myblob.name} \n"
-                 f"Blob Size: {myblob.length} bytes")
+    # Generate file ID from blob name
+    blob_name = '/'.join(myblob.name.split('/')[1:])  # Remove container name
+    file_id = blob_name.replace('/', '_').replace('.', '_')
+
+    logging.info('='*80)
+    logging.info(f"🔄 BLOB TRIGGER ACTIVATED")
+    logging.info(f"📄 Blob: {myblob.name}")
+    logging.info(f"📦 Size: {myblob.length} bytes")
+    logging.info(f"🆔 File ID: {file_id}")
+    logging.info('='*80)
 
     try:
+        # Update status: OCR started
+        table_service.update_processing_status(
+            file_id=file_id,
+            stage="OCR_STARTED",
+            status="IN_PROGRESS",
+            message="Starting OCR with Azure Document Intelligence"
+        )
+
         # 1. Call Azure Document Intelligence
-        endpoint = os.getenv("FORM_RECOGNIZER_ENDPOINT")
-        key = os.getenv("FORM_RECOGNIZER_KEY")
+        endpoint = os.getenv("DOCUMENT_INTELLIGENCE_ENDPOINT") or os.getenv("FORM_RECOGNIZER_ENDPOINT")
+        key = os.getenv("DOCUMENT_INTELLIGENCE_KEY") or os.getenv("FORM_RECOGNIZER_KEY")
 
         if not endpoint or not key:
-            logging.warning("Form Recognizer credentials missing. Skipping OCR.")
+            logging.warning("⚠️  Document Intelligence credentials missing. Using mock data.")
+            table_service.update_processing_status(
+                file_id=file_id,
+                stage="OCR_SKIPPED",
+                status="SUCCESS",
+                message="OCR skipped - credentials not configured. Using mock data."
+            )
             extracted_data = {"vendor": "Mock Vendor", "amount": 1000, "currency": "HUF"} # Fallback
         else:
+            logging.info(f"🤖 Initializing Azure Document Intelligence")
+            logging.info(f"🔗 Endpoint: {endpoint}")
+
             document_analysis_client = DocumentAnalysisClient(
                 endpoint=endpoint, credential=AzureKeyCredential(key)
             )
-            
+
             # Read blob content
             blob_content = myblob.read()
-            
+            logging.info(f"📖 Read {len(blob_content)} bytes from blob")
+
+            logging.info(f"🔍 Starting OCR analysis with prebuilt-invoice model...")
             poller = document_analysis_client.begin_analyze_document(
                 "prebuilt-invoice", document=blob_content
             )
+
+            logging.info(f"⏳ Waiting for OCR results...")
             invoices = poller.result()
+            logging.info(f"✅ OCR completed!")
             
             # Extract first invoice data
             if invoices.documents:
                 invoice = invoices.documents[0]
+                logging.info(f"📋 Found {len(invoices.documents)} invoice(s) in document")
+                logging.info(f"DEBUG: type(invoice) = {type(invoice)}")
+                logging.info(f"DEBUG: type(invoice.fields) = {type(invoice.fields)}")
+                logging.info(f"DEBUG: invoice.fields keys = {list(invoice.fields.keys()) if hasattr(invoice.fields, 'keys') else 'No keys'}")
 
                 # Check for special indicators in the full content
                 content = invoices.content
@@ -50,23 +84,87 @@ def main(myblob: func.InputStream):
                 if "EPR díj" in content:
                     special_indicators.append("EPR díj")
 
+                def get_value(field_name):
+                    field = invoice.fields.get(field_name)
+                    return field.value if field else None
+
+                invoice_total = get_value("InvoiceTotal")
+                if invoice_total:
+                    logging.info(f"DEBUG: type(invoice_total) = {type(invoice_total)}")
+                    logging.info(f"DEBUG: dir(invoice_total) = {dir(invoice_total)}")
+                    logging.info(f"DEBUG: invoice_total = {invoice_total}")
+
                 extracted_data = {
-                    "vendor": invoice.fields.get("VendorName", {}).get("value"),
-                    "vendor_tax_id": invoice.fields.get("VendorTaxId", {}).get("value"),
-                    "invoice_id": invoice.fields.get("InvoiceId", {}).get("value"),
-                    "invoice_date": str(invoice.fields.get("InvoiceDate", {}).get("value")),
-                    "amount": invoice.fields.get("InvoiceTotal", {}).get("value").amount if invoice.fields.get("InvoiceTotal") else None,
-                    "currency": invoice.fields.get("InvoiceTotal", {}).get("value").currency if invoice.fields.get("InvoiceTotal") else None,
+                    "vendor": sroie_utils.normalize_text(get_value("VendorName")),
+                    "vendor_tax_id": get_value("VendorTaxId"),
+                    "invoice_id": get_value("InvoiceId"),
+                    "invoice_date": sroie_utils.normalize_date(get_value("InvoiceDate")),
+                    "amount": getattr(invoice_total, 'amount', None) if invoice_total else None,
+                    "currency": getattr(invoice_total, 'symbol', getattr(invoice_total, 'code', None)) if invoice_total else None,
                     "special_indicators": special_indicators
                 }
+                
+                # SROIE Validation (Optional logging)
+                missing_fields = sroie_utils.validate_sroie_fields({
+                    "company": extracted_data["vendor"],
+                    "date": extracted_data["invoice_date"],
+                    "total": extracted_data["amount"],
+                    "address": "N/A" # Address is not always extracted by invoice model
+                })
+                if missing_fields:
+                    logging.warning(f"⚠️ SROIE Validation: Missing fields: {missing_fields}")
+
+                logging.info(f"📊 Extracted fields:")
+                logging.info(f"   • Vendor: {extracted_data.get('vendor')}")
+                logging.info(f"   • Tax ID: {extracted_data.get('vendor_tax_id')}")
+                logging.info(f"   • Invoice ID: {extracted_data.get('invoice_id')}")
+                logging.info(f"   • Amount: {extracted_data.get('amount')} {extracted_data.get('currency')}")
+                logging.info(f"   • Date: {extracted_data.get('invoice_date')}")
+                if special_indicators:
+                    logging.info(f"   • Special indicators: {', '.join(special_indicators)}")
             else:
+                logging.warning("⚠️  No invoices found in document")
                 extracted_data = {}
 
-        logging.info(f"Extracted Data: {json.dumps(extracted_data)}")
+        # Update status: OCR completed
+        table_service.update_processing_status(
+            file_id=file_id,
+            stage="OCR_COMPLETED",
+            status="SUCCESS",
+            message=f"Extracted data from invoice: {extracted_data.get('vendor', 'Unknown')} - {extracted_data.get('amount', 0)} {extracted_data.get('currency', 'HUF')}"
+        )
+
+        logging.info('='*80)
+        logging.info(f"✅ OCR COMPLETED")
+        logging.info(f"📊 Extracted Data: {json.dumps(extracted_data, indent=2)}")
+        logging.info('='*80)
 
         # 2. Run Matching Logic
+        table_service.update_processing_status(
+            file_id=file_id,
+            stage="MATCHING_STARTED",
+            status="IN_PROGRESS",
+            message="Starting matching with NAV data"
+        )
+
+        logging.info('='*80)
+        logging.info(f"🔍 STARTING MATCHING ENGINE")
+        logging.info('='*80)
+
         match_result = matching_engine.find_match(extracted_data)
-        logging.info(f"Match Result: {match_result['status']}")
+
+        logging.info('='*80)
+        logging.info(f"✅ MATCHING COMPLETED")
+        logging.info(f"📊 Match Status: {match_result['status']}")
+        logging.info(f"📊 Match Details: {json.dumps(match_result, indent=2)}")
+        logging.info('='*80)
+
+        table_service.update_processing_status(
+            file_id=file_id,
+            stage="MATCHING_COMPLETED",
+            status="SUCCESS",
+            message=f"Matching completed with status: {match_result['status']}"
+        )
 
         # 3. Save Result to Table Storage
         # Generate SAS URL for the blob

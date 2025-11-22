@@ -1,0 +1,119 @@
+{
+  "metrics": {
+    "total_images": 5,
+    "errors": 0,
+    "successful": 5,
+    "company_accuracy": 100.0,
+    "date_accuracy": 80.0,
+    "total_accuracy": 40.0,
+    "address_accuracy": 0.0,
+    "exact_match_rate": 0.0
+  },
+  "results": [
+    {
+      "image_id": "000",
+      "ground_truth": {
+        "company": "BOOK TA .K (TAMAN DAYA) SDN BHD",
+        "date": "25/12/2018",
+        "address": "NO.53 55,57 & 59, JALAN SAGU 18, TAMAN DAYA, 81100 JOHOR BAHRU, JOHOR.",
+        "total": "9.00"
+      },
+      "predicted": {
+        "company": "BOOK TA _K (TAMAN DAYA) SDN BHD",
+        "date": "2018-12-25",
+        "total": "9.0",
+        "address": "AddressValue(house_number=NO.55 55,57 & 59, po_box=None, road=JALAN SAGU, city=JOHOR BAHRU, state=JOHOR, postal_code=81100, country_region=None, street_address=NO.55 55,57 & 59 JALAN SAGU, unit=None, city_district=None, state_district=None, suburb=None, house=None, level=None)"
+      },
+      "matches": {
+        "company": true,
+        "date": true,
+        "total": true,
+        "address": false
+      }
+    },
+    {
+      "image_id": "001",
+      "ground_truth": {
+        "company": "INDAH GIFT & HOME DECO",
+        "date": "19/10/2018",
+        "address": "27, JALAN DEDAP 13, TAMAN JOHOR JAYA, 81100 JOHOR BAHRU, JOHOR.",
+        "total": "60.30"
+      },
+      "predicted": {
+        "company": "INDAH GIFT & HOME DECO",
+        "date": "2018-10-19",
+        "total": "60.31",
+        "address": "AddressValue(house_number=27, po_box=None, road=JALAN DEDAP, city=JOHOR BAHRU, state=JOHOR, postal_code=81100, country_region=None, street_address=27 JALAN DEDAP, unit=None, city_district=None, state_district=None, suburb=None, house=None, level=None)"
+      },
+      "matches": {
+        "company": true,
+        "date": true,
+        "total": false,
+        "address": false
+      }
+    },
+    {
+      "image_id": "002",
+      "ground_truth": {
+        "company": "MR D.I.Y. (JOHOR) SDN BHD",
+        "date": "12-01-19",
+        "address": "LOT 1851-A & 1851-B, JALAN KPB 6, KAWASAN PERINDUSTRIAN BALAKONG, 43300 SERI KEMBANGAN, SELANGOR (MR DIY TESCO TERBAU)",
+        "total": "33.90"
+      },
+      "predicted": {
+        "company": "MR D.I.Y. (JOHOR) SDN BHD",
+        "date": "2019-01-12",
+        "total": "33.92",
+        "address": "AddressValue(house_number=6, po_box=None, road=LOT 1851-A & 1851-B, JALAN KPB, city=BALAKONG, state=SELANGOR, postal_code=43300, country_region=None, street_address=6 LOT 1851-A & 1851-B, JALAN KPB, unit=None, city_district=None, state_district=None, suburb=KAWASAN PERINDUSTRIAN, house=None, level=None)"
+      },
+      "matches": {
+        "company": true,
+        "date": false,
+        "total": false,
+        "address": false
+      }
+    },
+    {
+      "image_id": "003",
+      "ground_truth": {
+        "company": "YONGFATT ENTERPRISE",
+        "date": "25/12/2018",
+        "address": "NO 122.124. JALAN DEDAP 13 81100 JOHOR BAHRU",
+        "total": "80.90"
+      },
+      "predicted": {
+        "company": "YONGFATT ENTERPRISE",
+        "date": "2018-12-25",
+        "total": "80.9",
+        "address": "AddressValue(house_number=NO. 122.124, po_box=None, road=JALAN DEDAP, city=JOHOR BAHRU, state=None, postal_code=81100, country_region=None, street_address=NO. 122.124 JALAN DEDAP, unit=None, city_district=None, state_district=None, suburb=None, house=None, level=None)"
+      },
+      "matches": {
+        "company": true,
+        "date": true,
+        "total": true,
+        "address": false
+      }
+    },
+    {
+      "image_id": "004",
+      "ground_truth": {
+        "company": "MR D.I.Y. (M) SDN BHD",
+        "date": "18-11-18",
+        "address": "LOT 1851-A & 1851-B, JALAN KPB 6, KAWASAN PERINDUSTRIAN BALAKONG, 43300 SERI KEMBANGAN, SELANGOR (TESCO PUTRA NILAI)",
+        "total": "30.90"
+      },
+      "predicted": {
+        "company": "MR D.I.Y. (M) SDN BHD",
+        "date": "2018-11-18",
+        "total": "30.91",
+        "address": "AddressValue(house_number=6, po_box=None, road=LOT 1851-A & 1851-B. JALAN KPB, city=BALAKONG, state=None, postal_code=43300, country_region=None, street_address=6 LOT 1851-A & 1851-B. JALAN KPB, unit=None, city_district=None, state_district=None, suburb=KAWASAN PERINDUSTRIAN, house=SELANGOR\n(TESCO PUTRA NILAI, level=None)"
+      },
+      "matches": {
+        "company": true,
+        "date": true,
+        "total": false,
+        "address": false
+      }
+    }
+  ]
+}

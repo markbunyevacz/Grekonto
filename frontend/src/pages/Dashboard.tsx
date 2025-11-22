@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AlertTriangle, XCircle, ArrowRight, Loader2, UploadCloud } from 'lucide-react';
 import clsx from 'clsx';
+import UploadStatusModal from '../components/UploadStatusModal';
 
 interface Task {
   id: string;
@@ -21,6 +22,7 @@ export default function Dashboard() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'ALL' | 'YELLOW' | 'RED'>('ALL');
+  const [uploadingFileId, setUploadingFileId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/tasks')
@@ -49,18 +51,22 @@ export default function Dashboard() {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       try {
-        await fetch('/api/upload', {
+        const res = await fetch('/api/upload', {
           method: 'POST',
           headers: {
             'x-filename': file.name
           },
           body: file
         });
-        alert("Fájl feltöltve! Hamarosan megjelenik a listában.");
-        // Refresh tasks
-        const res = await fetch('/api/tasks');
-        const data = await res.json();
-        setTasks(data);
+
+        if (res.ok) {
+          const data = await res.json();
+          // Show status modal
+          setUploadingFileId(data.file_id);
+        } else {
+          const error = await res.json();
+          alert(`Hiba a feltöltés során: ${error.error || 'Ismeretlen hiba'}`);
+        }
       } catch (err) {
         console.error(err);
         alert("Hiba a feltöltés során.");
@@ -189,6 +195,14 @@ export default function Dashboard() {
           </tbody>
         </table>
       </div>
+
+      {/* Upload Status Modal */}
+      {uploadingFileId && (
+        <UploadStatusModal
+          fileId={uploadingFileId}
+          onClose={() => setUploadingFileId(null)}
+        />
+      )}
     </div>
   );
 }

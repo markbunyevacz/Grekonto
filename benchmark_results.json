@@ -1,0 +1,112 @@
+[
+  {
+    "file": "000.jpg",
+    "scores": {
+      "company": 0.9824561403508771,
+      "date": 1.0,
+      "address": 0.7407407407407407,
+      "total": 1.0
+    },
+    "ground_truth": {
+      "company": "BOOK TA .K (TAMAN DAYA) SDN BHD",
+      "date": "25/12/2018",
+      "address": "NO.53 55,57 & 59, JALAN SAGU 18, TAMAN DAYA, 81100 JOHOR BAHRU, JOHOR.",
+      "total": "9.00"
+    },
+    "extracted": {
+      "company": "BOOK TA _K (TAMAN DAYA) SDN BHD",
+      "address": "NO.55 55,57 & 59 JALAN SAGU, JOHOR BAHRU, JOHOR, 81100",
+      "date": "2018-12-25",
+      "total": "9.0"
+    },
+    "duration": 3.8474202156066895
+  },
+  {
+    "file": "001.jpg",
+    "scores": {
+      "company": 1.0,
+      "date": 1.0,
+      "address": 0.6666666666666666,
+      "total": 0.8
+    },
+    "ground_truth": {
+      "company": "INDAH GIFT & HOME DECO",
+      "date": "19/10/2018",
+      "address": "27, JALAN DEDAP 13, TAMAN JOHOR JAYA, 81100 JOHOR BAHRU, JOHOR.",
+      "total": "60.30"
+    },
+    "extracted": {
+      "company": "INDAH GIFT & HOME DECO",
+      "address": "27 JALAN DEDAP, JOHOR BAHRU, JOHOR, 81100",
+      "date": "2018-10-19",
+      "total": "60.31"
+    },
+    "duration": 3.344637632369995
+  },
+  {
+    "file": "002.jpg",
+    "scores": {
+      "company": 1.0,
+      "date": 0.7,
+      "address": 0.5534591194968553,
+      "total": 0.8
+    },
+    "ground_truth": {
+      "company": "MR D.I.Y. (JOHOR) SDN BHD",
+      "date": "12-01-19",
+      "address": "LOT 1851-A & 1851-B, JALAN KPB 6, KAWASAN PERINDUSTRIAN BALAKONG, 43300 SERI KEMBANGAN, SELANGOR (MR DIY TESCO TERBAU)",
+      "total": "33.90"
+    },
+    "extracted": {
+      "company": "MR D.I.Y. (JOHOR) SDN BHD",
+      "address": "6 LOT 1851-A & 1851-B, JALAN KPB, BALAKONG, SELANGOR, 43300",
+      "date": "2019-01-12",
+      "total": "33.92"
+    },
+    "duration": 2.332625389099121
+  },
+  {
+    "file": "003.jpg",
+    "scores": {
+      "company": 1.0,
+      "date": 1.0,
+      "address": 0.7674418604651163,
+      "total": 1.0
+    },
+    "ground_truth": {
+      "company": "YONGFATT ENTERPRISE",
+      "date": "25/12/2018",
+      "address": "NO 122.124. JALAN DEDAP 13 81100 JOHOR BAHRU",
+      "total": "80.90"
+    },
+    "extracted": {
+      "company": "YONGFATT ENTERPRISE",
+      "address": "NO. 122.124 JALAN DEDAP, JOHOR BAHRU, None, 81100",
+      "date": "2018-12-25",
+      "total": "80.9"
+    },
+    "duration": 3.3079614639282227
+  },
+  {
+    "file": "004.jpg",
+    "scores": {
+      "company": 1.0,
+      "date": 1.0,
+      "address": 0.5228758169934641,
+      "total": 1.0
+    },
+    "ground_truth": {
+      "company": "MR D.I.Y. (M) SDN BHD",
+      "date": "18-11-18",
+      "address": "LOT 1851-A & 1851-B, JALAN KPB 6, KAWASAN PERINDUSTRIAN BALAKONG, 43300 SERI KEMBANGAN, SELANGOR (TESCO PUTRA NILAI)",
+      "total": "30.90"
+    },
+    "extracted": {
+      "company": "MR D.I.Y. (M) SDN BHD",
+      "address": "6 LOT 1851-A & 1851-B. JALAN KPB, BALAKONG, None, 43300",
+      "date": "2018-11-18",
+      "total": "30.9"
+    },
+    "duration": 3.3665781021118164
+  }
+]
