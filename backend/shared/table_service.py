@@ -3,7 +3,7 @@ import logging
 import json
 import datetime
 from azure.data.tables import TableServiceClient, TableClient
-from azure.core.exceptions import ResourceNotFoundError
+from azure.core.exceptions import ResourceNotFoundError, ResourceExistsError
 
 def get_table_service_client():
     """Get Azure Table Service Client"""
@@ -348,3 +348,213 @@ def get_processing_status(file_id):
     except Exception as e:
         logging.error(f"Error getting processing status: {str(e)}")
         return None
+
+def send_to_dlq(file_id, blob_name, error_message, stage, extracted_data=None):
+    """Send failed document to Dead Letter Queue
+    
+    Implements de-duplication: checks if an entry already exists for this file_id
+    to prevent duplicate entries from retries.
+    
+    Returns:
+        tuple: (success: bool, is_new_entry: bool)
+        - success: Whether the operation succeeded
+        - is_new_entry: True if a new entry was created, False if existing entry was updated
+    """
+    client = get_table_client("DeadLetterQueue")
+    if not client:
+        logging.error("Could not get DLQ table client")
+        return (False, False)
+
+    try:
+        # Validate and sanitize file_id to prevent injection attacks
+        # file_id should not contain characters that could break RowKey lookup
+        # RowKey in Azure Table Storage has restrictions, but we'll validate anyway
+        if not file_id or not isinstance(file_id, str):
+            logging.error(f"Invalid file_id provided: {file_id}")
+            return (False, False)
+        
+        # Sanitize file_id: remove or escape problematic characters
+        # Azure Table Storage RowKey cannot contain: / \ # ? 
+        # But since we're using get_entity (not query), we just need to ensure
+        # it's a valid string. However, for defense in depth, we validate it.
+        sanitized_file_id = file_id.replace("/", "_").replace("\\", "_").replace("#", "_").replace("?", "_")
+        if sanitized_file_id != file_id:
+            logging.warning(
+                f"file_id contained invalid characters, sanitized: "
+                f"{file_id} -> {sanitized_file_id}"
+            )
+            file_id = sanitized_file_id
+        
+        # Use file_id as RowKey for atomic de-duplication
+        # Try to get existing entity first (atomic check-and-create)
+        try:
+            existing_entity = client.get_entity(partition_key="DLQ", row_key=file_id)
+            # Entity exists, update it instead of creating duplicate
+            existing_entity["ErrorMessage"] = error_message
+            existing_entity["FailedStage"] = stage
+            existing_entity["ExtractedData"] = json.dumps(extracted_data or {})
+            existing_entity["LastUpdated"] = datetime.datetime.utcnow().isoformat()
+            
+            client.update_entity(existing_entity)
+            logging.info(f"Updated existing DLQ entry for file_id: {file_id}")
+            return (True, False)  # Success, but not a new entry
+        except Exception as get_error:
+            # Entity doesn't exist (or other error), create new one
+            # Check if it's a "not found" error vs other error
+            if isinstance(get_error, ResourceNotFoundError):
+                # Entity doesn't exist, create new one
+                timestamp = datetime.datetime.utcnow()
+                entity = {
+                    "PartitionKey": "DLQ",
+                    "RowKey": file_id,  # Use file_id as RowKey for de-duplication
+                    "FileId": file_id,
+                    "BlobName": blob_name,
+                    "ErrorMessage": error_message,
+                    "FailedStage": stage,
+                    "ExtractedData": json.dumps(extracted_data or {})
+                    "CreatedAt": timestamp.isoformat(),
+                    "Status": "PENDING_REVIEW",
+                    "RetryCount": 3
+                }
+                try:
+                    client.create_entity(entity)
+                    logging.info(f"Document sent to DLQ: {file_id}")
+                    return (True, True)  # Success, new entry created
+                except ResourceExistsError:
+                    # Race condition: another instance created it between get and create
+                    # Try to update the now-existing entity
+                    try:
+                        existing_entity = client.get_entity(
+                            partition_key="DLQ", 
+                            row_key=file_id
+                        )
+                        existing_entity["ErrorMessage"] = error_message
+                        existing_entity["FailedStage"] = stage
+                        existing_entity["ExtractedData"] = json.dumps(extracted_data or {})
+                        existing_entity["LastUpdated"] = datetime.datetime.utcnow().isoformat()
+                        client.update_entity(existing_entity)
+                        logging.info(
+                            f"Race condition handled: Updated existing DLQ entry "
+                            f"for file_id: {file_id}"
+                        )
+                        return (True, False)  # Success, but not a new entry
+                    except Exception as update_error:
+                        logging.error(
+                            f"Error updating DLQ entry after race condition: "
+                            f"{update_error}"
+                        )
+                        return (False, False)
+            else:
+                # Some other error occurred
+                raise get_error
+        
+    except Exception as e:
+        logging.error(f"Error sending to DLQ: {str(e)}")
+        return (False, False)
+
+def get_dlq_items(status="PENDING_REVIEW"):
+    """Get items from Dead Letter Queue
+    
+    Args:
+        status: Status to filter by. Must be one of: PENDING_REVIEW, RESOLVED, REPROCESSED
+                Input is validated to prevent OData injection attacks.
+    """
+    client = get_table_client("DeadLetterQueue")
+    if not client:
+        return []
+
+    try:
+        # Validate status to prevent OData injection
+        # Only allow predefined status values
+        allowed_statuses = ["PENDING_REVIEW", "RESOLVED", "REPROCESSED"]
+        if status not in allowed_statuses:
+            logging.warning(
+                f"Invalid status '{status}' provided. "
+                f"Using default 'PENDING_REVIEW'"
+            )
+            status = "PENDING_REVIEW"
+        
+        # Escape single quotes in status (defense in depth)
+        # Azure Table Storage OData requires single quotes to be doubled
+        escaped_status = status.replace("'", "''")
+        filter_query = f"Status eq '{escaped_status}'"
+        entities = client.query_entities(filter_query)
+
+        dlq_items = []
+        for entity in entities:
+            try:
+                extracted_data = json.loads(entity.get("ExtractedData", "{}"))
+                dlq_items.append({
+                    "id": entity["RowKey"],
+                    "file_id": entity.get("FileId"),
+                    "blob_name": entity.get("BlobName"),
+                    "error": entity.get("ErrorMessage"),
+                    "stage": entity.get("FailedStage"),
+                    "created_at": entity.get("CreatedAt"),
+                    "status": entity.get("Status"),
+                    "retry_count": entity.get("RetryCount", 0),
+                    "extracted_data": extracted_data
+                })
+            except Exception as e:
+                logging.error(f"Error parsing DLQ entity: {str(e)}")
+                continue
+
+        logging.info(f"Retrieved {len(dlq_items)} DLQ items with status {status}")
+        return dlq_items
+    except Exception as e:
+        logging.error(f"Error fetching DLQ items: {str(e)}")
+        return []
+
+def resolve_dlq_item(dlq_id, resolution_status, resolution_notes=""):
+    """Resolve a DLQ item (mark as resolved or reprocessed)
+    
+    Args:
+        dlq_id: The DLQ item ID (RowKey). Must be a valid string.
+        resolution_status: Status to set. Must be one of: RESOLVED, REPROCESSED
+        resolution_notes: Optional notes about the resolution
+    """
+    client = get_table_client("DeadLetterQueue")
+    if not client:
+        return False
+
+    try:
+        # Validate resolution_status to prevent injection
+        allowed_statuses = ["RESOLVED", "REPROCESSED"]
+        if resolution_status not in allowed_statuses:
+            logging.error(
+                f"Invalid resolution_status '{resolution_status}'. "
+                f"Must be one of: {allowed_statuses}"
+            )
+            return False
+        
+        # Validate and sanitize dlq_id
+        if not dlq_id or not isinstance(dlq_id, str):
+            logging.error(f"Invalid dlq_id provided: {dlq_id}")
+            return False
+        
+        # Sanitize dlq_id (defense in depth)
+        sanitized_dlq_id = dlq_id.replace("/", "_").replace("\\", "_").replace("#", "_").replace("?", "_")
+        if sanitized_dlq_id != dlq_id:
+            logging.warning(
+                f"dlq_id contained invalid characters, sanitized: "
+                f"{dlq_id} -> {sanitized_dlq_id}"
+            )
+            dlq_id = sanitized_dlq_id
+        
+        # Sanitize resolution_notes (escape single quotes if used in queries later)
+        # For now, just limit length to prevent abuse
+        if resolution_notes and len(resolution_notes) > 1000:
+            logging.warning("resolution_notes too long, truncating")
+            resolution_notes = resolution_notes[:1000]
+        
+        entity = client.get_entity(partition_key="DLQ", row_key=dlq_id)
+        entity["Status"] = resolution_status
+        entity["ResolutionNotes"] = resolution_notes
+        entity["ResolvedAt"] = datetime.datetime.utcnow().isoformat()
+
+        client.update_entity(entity)
+        logging.info(f"DLQ item {dlq_id} resolved with status {resolution_status}")
+        return True
+    except Exception as e:
+        logging.error(f"Error resolving DLQ item: {str(e)}")
+        return False
