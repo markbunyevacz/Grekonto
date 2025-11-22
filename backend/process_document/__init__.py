@@ -242,5 +242,43 @@ def main(myblob: func.InputStream):
 
     except Exception as e:
         logging.error(f"Error processing document: {str(e)}")
+
+        # Determine failed stage
+        failed_stage = "UNKNOWN"
+        try:
+            # Try to get current stage from processing status
+            status = table_service.get_processing_status(file_id)
+            if status:
+                failed_stage = status.get('current_stage', 'UNKNOWN')
+        except:
+            pass
+
+        # Send to DLQ after retries exhausted
+        try:
+            table_service.send_to_dlq(
+                file_id=file_id,
+                blob_name=blob_name,
+                error_message=str(e),
+                stage=failed_stage,
+                extracted_data=None
+            )
+
+            # Log audit event
+            table_service.log_audit_event(
+                event_type="PROCESSING_FAILED_DLQ",
+                message=f"Document processing failed and sent to DLQ: {str(e)}",
+                related_item_id=blob_name
+            )
+
+            # Update processing status
+            table_service.update_processing_status(
+                file_id=file_id,
+                stage="DLQ_SENT",
+                status="ERROR",
+                message=f"Processing failed: {str(e)}"
+            )
+        except Exception as dlq_error:
+            logging.error(f"Error sending to DLQ: {str(dlq_error)}")
+
         # Re-raise exception to trigger Azure Functions Retry Policy (defined in function.json)
         raise e
