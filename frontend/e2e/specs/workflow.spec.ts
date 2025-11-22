@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { existsSync } from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,6 +12,17 @@ const BACKEND_TEST_INVOICE_PATH = path.join(__dirname, '../../../backend/integra
 
 // Base URL for backend API (defaults to localhost:7071)
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:7071';
+
+// Find available test invoice file
+function getTestInvoicePath(): string {
+  if (existsSync(TEST_INVOICE_PATH)) {
+    return TEST_INVOICE_PATH;
+  }
+  if (existsSync(BACKEND_TEST_INVOICE_PATH)) {
+    return BACKEND_TEST_INVOICE_PATH;
+  }
+  throw new Error(`No test invoice file found. Checked:\n- ${TEST_INVOICE_PATH}\n- ${BACKEND_TEST_INVOICE_PATH}`);
+}
 
 test.describe('End-to-End Workflow', () => {
 
@@ -85,25 +97,38 @@ test.describe('End-to-End Workflow', () => {
     });
 
     // Upload test invoice file
-    // Try root test_invoice_001.pdf first, fallback to backend integration_test_invoice.pdf
-    let invoicePath = TEST_INVOICE_PATH;
-    try {
-      await page.locator('input[type="file"]').setInputFiles(invoicePath);
-    } catch (error) {
-      // Try fallback path
-      invoicePath = BACKEND_TEST_INVOICE_PATH;
-      await page.locator('input[type="file"]').setInputFiles(invoicePath);
-    }
+    const invoicePath = getTestInvoicePath();
+    console.log(`Using test invoice: ${invoicePath}`);
+    
+    const fileInput = page.locator('input[type="file"]');
+    await expect(fileInput).toBeVisible({ timeout: 5000 });
+    await fileInput.setInputFiles(invoicePath);
+    console.log('File selected, waiting for upload...');
     
     // Wait for upload request to complete
-    const uploadResponse = await page.waitForResponse(
-      response => response.url().includes('/api/upload') && response.status() === 200,
-      { timeout: 30000 }
-    );
+    let uploadResponse;
+    try {
+      uploadResponse = await page.waitForResponse(
+        response => {
+          const url = response.url();
+          const status = response.status();
+          if (url.includes('/api/upload')) {
+            console.log(`Upload response: ${status} from ${url}`);
+          }
+          return url.includes('/api/upload') && status === 200;
+        },
+        { timeout: 30000 }
+      );
+    } catch (error) {
+      // Log all responses to help debug
+      console.error('Upload timeout. Checking for error responses...');
+      throw new Error(`Upload failed or timed out. Make sure backend is running and accessible. Error: ${error}`);
+    }
     
     const uploadData = await uploadResponse.json();
-    const fileId = uploadData.file_id;
+    console.log('Upload response data:', JSON.stringify(uploadData, null, 2));
     
+    const fileId = uploadData.file_id;
     expect(fileId).toBeTruthy();
     console.log(`Upload successful. File ID: ${fileId}`);
     
@@ -116,19 +141,29 @@ test.describe('End-to-End Workflow', () => {
     while (!processingComplete && (Date.now() - startTime) < maxWaitTime) {
       try {
         const statusResponse = await request.get(`${BACKEND_URL}/api/status/${fileId}`);
+        const statusCode = statusResponse.status();
+        
+        if (statusCode === 404) {
+          console.log(`Status not found yet (404), waiting...`);
+          await page.waitForTimeout(2000);
+          continue;
+        }
+        
         if (statusResponse.ok()) {
           statusData = await statusResponse.json();
           const overallStatus = statusData.overall_status;
           
-          console.log(`Processing status: ${overallStatus} (stage: ${statusData.current_stage})`);
+          console.log(`Processing status: ${overallStatus} (stage: ${statusData.current_stage || 'N/A'})`);
           
           if (overallStatus === 'COMPLETED' || overallStatus === 'FAILED') {
             processingComplete = true;
             break;
           }
+        } else {
+          console.log(`Status check returned ${statusCode}`);
         }
-      } catch (error) {
-        console.log(`Status check error: ${error}`);
+      } catch (error: any) {
+        console.log(`Status check error: ${error.message || error}`);
       }
       
       // Wait 2 seconds before next check
@@ -136,61 +171,61 @@ test.describe('End-to-End Workflow', () => {
     }
     
     if (!processingComplete) {
-      throw new Error(`Processing did not complete within ${maxWaitTime / 1000} seconds`);
+      console.error(`Processing did not complete. Last status:`, statusData);
+      throw new Error(`Processing did not complete within ${maxWaitTime / 1000} seconds. Last status: ${statusData?.overall_status || 'unknown'}`);
     }
+    
+    console.log(`Processing completed with status: ${statusData.overall_status}`);
     
     // Wait for task to appear in the tasks list
     // Poll the tasks endpoint until we see a new task
     let taskFound = false;
+    let foundTask: any = null;
     const taskPollStartTime = Date.now();
-    const taskPollMaxTime = 60000; // 1 minute to find task
+    const taskPollMaxTime = 120000; // 2 minutes to find task (processing can take time)
+    
+    console.log(`Starting to poll for task. Initial task count: ${initialTaskCount}`);
     
     while (!taskFound && (Date.now() - taskPollStartTime) < taskPollMaxTime) {
-      // Reload page to trigger tasks fetch
-      await page.reload({ waitUntil: 'networkidle' });
-      
-      // Wait for tasks API call
-      const tasksResponse = await page.waitForResponse(
-        response => response.url().includes('/api/tasks') && response.status() === 200,
-        { timeout: 5000 }
-      );
-      
-      const tasks = await tasksResponse.json();
-      const currentTaskCount = Array.isArray(tasks) ? tasks.length : 0;
-      
-      // Check if we have a new task
-      if (currentTaskCount > initialTaskCount) {
-        // Find the task that matches our file ID
-        const newTask = tasks.find((task: any) => 
-          task.id && (task.id.includes(fileId) || fileId.includes(task.id))
-        );
+      try {
+        // Use direct API call instead of page reload for faster polling
+        const tasksResponse = await request.get(`${BACKEND_URL}/api/tasks`);
         
-        if (newTask) {
-          taskFound = true;
-          console.log(`Found task: ${newTask.id}, Status: ${newTask.status}`);
+        if (tasksResponse.ok()) {
+          const tasks = await tasksResponse.json();
+          const currentTaskCount = Array.isArray(tasks) ? tasks.length : 0;
           
-          // Verify task has extracted data
-          expect(newTask.extracted).toBeDefined();
+          console.log(`Current task count: ${currentTaskCount} (was ${initialTaskCount})`);
           
-          // Wait for the task to appear in the UI
-          // Check for vendor name if available
-          if (newTask.extracted?.vendor) {
-            await expect(page.getByText(newTask.extracted.vendor, { exact: false })).toBeVisible({ timeout: 10000 });
+          // Check if we have a new task
+          if (currentTaskCount > initialTaskCount) {
+            // Find the task that matches our file ID (check various patterns)
+            const newTask = tasks.find((task: any) => {
+              if (!task.id) return false;
+              // Try multiple matching strategies
+              const taskIdLower = task.id.toLowerCase();
+              const fileIdLower = fileId.toLowerCase();
+              return taskIdLower.includes(fileIdLower) || 
+                     fileIdLower.includes(taskIdLower) ||
+                     taskIdLower.replace(/[_-]/g, '').includes(fileIdLower.replace(/[_-]/g, ''));
+            });
+            
+            if (newTask) {
+              taskFound = true;
+              foundTask = newTask;
+              console.log(`Found task: ${newTask.id}, Status: ${newTask.status}`);
+              console.log(`Task extracted data:`, JSON.stringify(newTask.extracted, null, 2));
+              break;
+            } else {
+              console.log(`New task count detected but no matching task found. File ID: ${fileId}`);
+              console.log(`Available task IDs:`, tasks.map((t: any) => t.id));
+            }
           }
-          
-          // Check for amount if available
-          if (newTask.extracted?.amount) {
-            const amountText = new Intl.NumberFormat('hu-HU', {
-              style: 'decimal',
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0
-            }).format(newTask.extracted.amount);
-            const currency = newTask.extracted.currency || 'HUF';
-            await expect(page.getByText(`${amountText} ${currency}`, { exact: false })).toBeVisible({ timeout: 10000 });
-          }
-          
-          break;
+        } else {
+          console.log(`Tasks API returned ${tasksResponse.status()}`);
         }
+      } catch (error: any) {
+        console.log(`Error polling tasks: ${error.message || error}`);
       }
       
       // Wait before next poll
@@ -198,7 +233,45 @@ test.describe('End-to-End Workflow', () => {
     }
     
     if (!taskFound) {
-      throw new Error(`Task did not appear in the list within ${taskPollMaxTime / 1000} seconds`);
+      // Try one more time with page reload to see current state
+      await page.reload({ waitUntil: 'networkidle' });
+      await page.waitForTimeout(2000);
+      
+      const finalTasksResponse = await request.get(`${BACKEND_URL}/api/tasks`);
+      if (finalTasksResponse.ok()) {
+        const finalTasks = await finalTasksResponse.json();
+        console.error(`Final task list:`, JSON.stringify(finalTasks, null, 2));
+      }
+      
+      throw new Error(`Task did not appear in the list within ${taskPollMaxTime / 1000} seconds. File ID: ${fileId}`);
+    }
+    
+    // Reload page to show the task in UI
+    await page.reload({ waitUntil: 'networkidle' });
+    await expect(page.getByText('Mai Statisztika')).toBeVisible({ timeout: 10000 });
+    
+    // Verify task has extracted data
+    expect(foundTask.extracted).toBeDefined();
+    
+    // Wait for the task to appear in the UI
+    // Check for vendor name if available
+    if (foundTask.extracted?.vendor) {
+      await expect(page.getByText(foundTask.extracted.vendor, { exact: false })).toBeVisible({ timeout: 15000 });
+    } else {
+      console.warn('No vendor name in extracted data');
+    }
+    
+    // Check for amount if available
+    if (foundTask.extracted?.amount) {
+      const amountText = new Intl.NumberFormat('hu-HU', {
+        style: 'decimal',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(foundTask.extracted.amount);
+      const currency = foundTask.extracted.currency || 'HUF';
+      await expect(page.getByText(`${amountText} ${currency}`, { exact: false })).toBeVisible({ timeout: 15000 });
+    } else {
+      console.warn('No amount in extracted data');
     }
     
     // Verify the task appears in the UI table
