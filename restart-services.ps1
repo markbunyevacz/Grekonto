@@ -10,15 +10,15 @@ function Stop-ProcessOnPort {
     
     $connections = netstat -ano | findstr ":$Port" | findstr "LISTENING"
     if ($connections) {
-        $pid = ($connections -split '\s+')[-1]
-        if ($pid) {
-            Write-Host "Stopping $ServiceName on port $Port (PID: $pid)..." -ForegroundColor Yellow
+        $processId = ($connections -split '\s+')[-1]
+        if ($processId) {
+            Write-Host "Stopping $ServiceName on port $Port (PID: $processId)..." -ForegroundColor Yellow
             try {
-                Stop-Process -Id $pid -Force -ErrorAction SilentlyContinue
+                Stop-Process -Id $processId -Force -ErrorAction SilentlyContinue
                 Start-Sleep -Seconds 2
                 Write-Host "  [OK] Stopped $ServiceName" -ForegroundColor Green
             } catch {
-                Write-Host "  [WARN] Could not stop process $pid : $($_.Exception.Message)" -ForegroundColor Yellow
+                Write-Host "  [WARN] Could not stop process $processId : $($_.Exception.Message)" -ForegroundColor Yellow
             }
         }
     } else {

@@ -411,7 +411,7 @@ def send_to_dlq(file_id, blob_name, error_message, stage, extracted_data=None):
                     "BlobName": blob_name,
                     "ErrorMessage": error_message,
                     "FailedStage": stage,
-                    "ExtractedData": json.dumps(extracted_data or {})
+                    "ExtractedData": json.dumps(extracted_data or {}),
                     "CreatedAt": timestamp.isoformat(),
                     "Status": "PENDING_REVIEW",
                     "RetryCount": 3
