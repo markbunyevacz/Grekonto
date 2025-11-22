@@ -50,7 +50,16 @@ export default function UploadStatusModal({ fileId, onClose }: Props) {
         const res = await fetch(`/api/status/${fileId}`);
         if (res.ok) {
           const data = await res.json();
-          setStatus(data);
+          // Validate and set status with defaults for missing fields
+          setStatus({
+            ...data,
+            stages: data.stages || [],
+            file_name: data.file_name || data.file_id || 'Fájl',
+            overall_status: data.overall_status || 'IN_PROGRESS',
+            current_stage: data.current_stage || '',
+            current_status: data.current_status || '',
+            error_message: data.error_message || ''
+          });
           
           // Auto-close if completed or failed
           if (data.overall_status === 'COMPLETED' || data.overall_status === 'FAILED') {
@@ -84,7 +93,11 @@ export default function UploadStatusModal({ fileId, onClose }: Props) {
       <div className="bg-white rounded-xl shadow-2xl p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-slate-900">Feldolgozás Állapota</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600">
+          <button 
+            onClick={onClose} 
+            className="text-slate-400 hover:text-slate-600"
+            aria-label="Bezárás"
+          >
             <X size={24} />
           </button>
         </div>
@@ -115,44 +128,48 @@ export default function UploadStatusModal({ fileId, onClose }: Props) {
                     {status.overall_status === 'COMPLETED' && 'Feldolgozás sikeres!'}
                     {status.overall_status === 'FAILED' && 'Feldolgozás sikertelen'}
                   </p>
-                  <p className="text-sm text-slate-500">{status.file_name}</p>
+                  <p className="text-sm text-slate-500">{status.file_name || status.file_id || 'Fájl'}</p>
                 </div>
               </div>
             </div>
 
             {/* Processing Stages */}
-            <div className="space-y-3">
-              <h3 className="font-semibold text-slate-700">Feldolgozási lépések:</h3>
-              {status.stages.map((stage, index) => (
-                <div
-                  key={index}
-                  className={`border-l-4 pl-4 py-2 ${
-                    stage.status === 'SUCCESS'
-                      ? 'border-green-500 bg-green-50'
-                      : stage.status === 'ERROR'
-                      ? 'border-red-500 bg-red-50'
-                      : 'border-blue-500 bg-blue-50'
-                  }`}
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <p className="font-medium text-slate-900">
-                        {stageLabels[stage.stage] || stage.stage}
-                      </p>
-                      <p className="text-sm text-slate-600 mt-1">{stage.message}</p>
-                      {stage.error && (
-                        <p className="text-sm text-red-600 mt-1 font-mono bg-red-100 p-2 rounded">
-                          {stage.error}
+            {status.stages && status.stages.length > 0 && (
+              <div className="space-y-3">
+                <h3 className="font-semibold text-slate-700">Feldolgozási lépések:</h3>
+                {status.stages.map((stage, index) => (
+                  <div
+                    key={index}
+                    className={`border-l-4 pl-4 py-2 ${
+                      stage.status === 'SUCCESS'
+                        ? 'border-green-500 bg-green-50'
+                        : stage.status === 'ERROR'
+                        ? 'border-red-500 bg-red-50'
+                        : 'border-blue-500 bg-blue-50'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <p className="font-medium text-slate-900">
+                          {stageLabels[stage.stage] || stage.stage}
                         </p>
+                        <p className="text-sm text-slate-600 mt-1">{stage.message}</p>
+                        {stage.error && (
+                          <p className="text-sm text-red-600 mt-1 font-mono bg-red-100 p-2 rounded">
+                            {stage.error}
+                          </p>
+                        )}
+                      </div>
+                      {stage.timestamp && (
+                        <span className="text-xs text-slate-400 ml-4">
+                          {new Date(stage.timestamp).toLocaleTimeString('hu-HU')}
+                        </span>
                       )}
                     </div>
-                    <span className="text-xs text-slate-400 ml-4">
-                      {new Date(stage.timestamp).toLocaleTimeString('hu-HU')}
-                    </span>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
 
             {/* Error Message */}
             {status.error_message && (
