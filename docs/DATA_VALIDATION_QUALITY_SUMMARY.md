@@ -1,9 +1,9 @@
 # Data Validation & Quality - Executive Summary
 
-**Projekt**: Grekonto AI Automatizáció  
+**Projekt**: Grekonto AI Automatizáció
 **Verzió**: 1.0
 **Utolsó frissítés**: 2025-11-23
-**Commit**: TBD
+**Commit**: 6392a810
 
 ## 🎯 Executive Summary
 
