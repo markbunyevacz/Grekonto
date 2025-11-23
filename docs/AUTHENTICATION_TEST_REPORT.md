@@ -111,9 +111,9 @@ test_validate_email: PASS
 
 ## DOKUMENTÁCIÓ VERZIÓ ÉS FRISSÍTÉSI TÖRTÉNET
 
-**Verzió:** 1.0  
-**Utolsó frissítés:** 2025-11-23  
-**Commit:** TBD (frissítés után)
+**Verzió:** 1.0
+**Utolsó frissítés:** 2025-11-23
+**Commit:** d11b0776
 
 ### Frissítési Történet
 * **v1.0** (2025-11-23): Eredeti verzió - 21/21 tesztek sikeresen futottak
