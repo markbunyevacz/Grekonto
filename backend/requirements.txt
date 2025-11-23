@@ -12,3 +12,9 @@ google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
 dropbox
+redis
+PyJWT
+cryptography
+python-dotenv
+slowapi
+flask-cors

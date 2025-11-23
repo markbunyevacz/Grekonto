@@ -7,6 +7,7 @@ from ..shared import drive_client
 from ..shared import dropbox_client
 from ..shared import key_vault_client
 from ..shared import table_service
+from ..shared.file_validator import FileValidator
 
 def main(mytimer: func.TimerRequest) -> None:
     utc_timestamp = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc).isoformat()
@@ -53,15 +54,16 @@ def main(mytimer: func.TimerRequest) -> None:
                 filename = file_data['filename']
                 content = file_data['content']
                 
-                # 3. Validate File Type (FR-Scope)
-                if not filename.lower().endswith(('.pdf', '.jpg', '.png', '.jpeg')):
-                    logging.info(f"Skipping unsupported file: {filename}")
+                # 3. Validate File Type (Strict MIME type validation + file signature verification)
+                is_valid, error_msg = FileValidator.validate_file(filename, content)
+                if not is_valid:
+                    logging.warning(f"❌ File validation failed for '{filename}': {error_msg}")
                     continue
 
                 # 4. Save to Blob Storage
                 blob_name = f"{datetime.datetime.now().strftime('%Y%m%d')}/{filename}"
                 storage_client.upload_to_blob("raw-documents", blob_name, content)
-                logging.info(f"Uploaded {filename} to raw-documents/{blob_name}")
+                logging.info(f"✅ Uploaded {filename} to raw-documents/{blob_name}")
 
         except Exception as e:
             logging.error(f"Error polling source {source}: {str(e)}")

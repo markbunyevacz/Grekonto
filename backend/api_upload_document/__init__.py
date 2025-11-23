@@ -3,6 +3,7 @@ import logging
 import json
 from ..shared import storage_client
 from ..shared import table_service
+from ..shared.file_validator import FileValidator, FileValidationError
 import datetime
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -13,12 +14,14 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     try:
         filename = None
         file_content = None
+        content_type = None
 
         # 1. Try to get file from multipart/form-data (req.files)
         if req.files:
             for name, f in req.files.items():
                 filename = f.filename
                 file_content = f.stream.read()
+                content_type = f.content_type  # Get MIME type from request
                 logging.info(f"📎 File received via multipart: {filename} ({len(file_content)} bytes)")
                 break
 
@@ -28,6 +31,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             if filename_header:
                 filename = filename_header
                 file_content = req.get_body()
+                content_type = req.headers.get('content-type')
                 logging.info(f"📎 File received via header: {filename} ({len(file_content)} bytes)")
 
         if not file_content or not filename:
@@ -35,6 +39,17 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             return func.HttpResponse(
                  "Please upload a file using multipart/form-data (field 'file') or provide 'x-filename' header with binary body.",
                  status_code=400
+            )
+
+        # Validate uploaded file (MIME type, size, signature)
+        logging.info(f"🔍 Starting file validation for: {filename}")
+        is_valid, error_message = FileValidator.validate_file(filename, file_content, content_type)
+        if not is_valid:
+            logging.error(f"❌ FILE VALIDATION FAILED: {error_message}")
+            return func.HttpResponse(
+                json.dumps({"error": f"File validation failed: {error_message}"}),
+                mimetype="application/json",
+                status_code=400
             )
 
         # Generate blob name and file ID
