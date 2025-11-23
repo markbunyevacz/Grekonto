@@ -137,7 +137,7 @@ Ez a terv készen áll a fejlesztők számára a Sprint 1 megkezdéséhez.
 
 **Verzió:** 2.1
 **Utolsó frissítés:** 2025-11-22
-**Commit:** TBD (frissítés után)
+**Commit:** c72f14bc
 
 ### Frissítési Történet
 * **v2.1** (2025-11-22): Resilience komponensek (DLQ, Secret Rotation, Durable Functions) már implementálva

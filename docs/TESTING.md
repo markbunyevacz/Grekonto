@@ -4,7 +4,7 @@
 **Dátum**: 2025-11-22
 **Verzió**: 1.0
 **Utolsó frissítés**: 2025-11-22
-**Commit**: TBD (frissítés után)
+**Commit**: c72f14bc
 
 ---
 

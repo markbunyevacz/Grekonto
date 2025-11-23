@@ -3,7 +3,7 @@
 **Projekt**: Grekonto AI Automatizáció
 **Verzió**: 1.0
 **Utolsó frissítés**: 2025-11-22
-**Commit**: TBD (frissítés után)
+**Commit**: c72f14bc
 
 A korábbi egyeztetések és a technikai tervezés alapján összeállítottam a **Jövőbeli Folyamat (TO-BE Process)** leírását. Ez a leírás azt mutatja be, hogyan fog kinézni a napi munka a rendszer élesítése után, felhasználói szemszögből.
 

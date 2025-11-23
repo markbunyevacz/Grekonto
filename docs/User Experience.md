@@ -3,7 +3,7 @@
 **Projekt**: Grekonto AI Automatizáció
 **Verzió**: 1.0
 **Utolsó frissítés**: 2025-11-22
-**Commit**: TBD (frissítés után)
+**Commit**: c72f14bc
 
 Senior BA és UX (User Experience) tervező sapkában elkészítettem a **Level 2-es felhasználói élményre** tervezett felületek vázlatát (Wireframe) és működési leírását.
 

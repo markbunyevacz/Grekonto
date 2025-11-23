@@ -9,7 +9,7 @@
 ## Dokumentáció Verzió és Frissítési Történet
 
 **Utolsó frissítés:** 2025-11-22
-**Commit:** TBD (frissítés után)
+**Commit:** c72f14bc
 **Státusz:** ✅ Historikus tracker - Integrációs tesztek (2025-11-19 - 2025-11-22)
 
 ### Frissítési Történet

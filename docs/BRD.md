@@ -172,7 +172,7 @@ Ez a rendszer "agya", amely kiváltja az asszisztensi munkát.
 
 **Verzió:** 1.3
 **Utolsó frissítés:** 2025-11-22
-**Commit:** TBD (frissítés után)
+**Commit:** c72f14bc
 
 ### Frissítési Történet
 * **v1.3** (2025-11-22): Resilience & Reliability követelmények (NFR-04, NFR-05, NFR-06) + Implementáció Státusza hozzáadva
