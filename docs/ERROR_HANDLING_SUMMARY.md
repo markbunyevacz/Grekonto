@@ -3,7 +3,7 @@
 **Projekt**: Grekonto AI Automatizáció
 **Verzió**: 2.0
 **Utolsó frissítés**: 2025-11-23
-**Commit**: TBD
+**Commit**: b93816ba
 
 ## 🎯 Executive Summary
 

@@ -1,9 +1,9 @@
 # Error Handling & Recovery Implementation
 
-**Projekt**: Grekonto AI Automatizáció  
+**Projekt**: Grekonto AI Automatizáció
 **Verzió**: 1.0
 **Utolsó frissítés**: 2025-11-23
-**Commit**: TBD
+**Commit**: b93816ba
 
 ## 🎯 Overview
 
