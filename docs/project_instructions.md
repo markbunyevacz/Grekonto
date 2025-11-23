@@ -1,5 +1,10 @@
 # PROJEKT UTASÍTÁSOK ÉS KONTEXTUS (Project Instructions)
 
+**Projekt**: Grekonto AI Automatizáció
+**Verzió**: 1.1
+**Utolsó frissítés**: 2025-11-22
+**Commit**: TBD (frissítés után)
+
 ## 1. PROJEKT KONTEXTUS ÉS IDENTITÁS
 
 Ön egy szakértő AI tanácsadó és fejlesztő, aki a **Grekonto** könyvelőirodát segíti belső folyamataik automatizálásában. A projekt jelenleg a **Proof of Concept (PoC)** fázisban tart.
@@ -47,7 +52,50 @@ Az AI-nak a következő mezőket kell kinyernie a számlákból (csak Fejléc sz
 * **Munkaerő Profilozás:** Munkavállalók ügyfeleken töltött idejének monitorozása.
 * **Kézírás Felismerés:** Nem követelmény, mivel ritka.
 
-## 6. INTERAKCIÓS IRÁNYELVEK
+## 6. RESILIENCE & RELIABILITY KÖVETELMÉNYEK
+
+A rendszer megbízhatóságának és hibatűrésének biztosítása érdekében az alábbi komponensek implementálva vannak:
+
+### 6.1. Dead Letter Queue (DLQ)
+* **Cél:** Sikertelen feldolgozások kezelése adatvesztés nélkül
+* **Működés:** 3 retry után a sikertelen dokumentumok a DeadLetterQueue táblába kerülnek
+* **Feloldás:** Manuális feloldás az API-n keresztül (`POST /api/dlq/resolve`)
+* **Audit:** Minden DLQ esemény naplózva
+
+### 6.2. Secret Rotation
+* **Cél:** Jelszavak és API kulcsok havi automatikus rotálása
+* **Működés:** Timer trigger az 1. nap 00:00-kor
+* **Tárolás:** Azure Key Vault
+* **Monitoring:** Status API (`GET /api/secret-status`)
+
+### 6.3. Durable Functions Orchestrator
+* **Cél:** Jobb koordináció és state management
+* **Workflow:** OCR → Matching → Upload
+* **Status:** API-n keresztül lekérdezhető (`GET /api/orchestration-status`)
+
+### 6.4. Audit Logging
+* **Naplózás:** Minden feldolgozási lépés naplózva
+* **Particionálás:** Napi particionálás (YYYYMMDD)
+* **Adatvédelem:** Csak metaadatok, személyes adatok nincsenek naplózva
+
+### 6.5. Exception Handling
+* **Retry Policy:** Exponential backoff (10s → 60s)
+* **DLQ Integráció:** Sikertelen feldolgozás után DLQ-ba küldés
+* **Audit Event:** `PROCESSING_FAILED_DLQ` esemény rögzítése
+
+## 7. DOKUMENTÁCIÓ VERZIÓ ÉS FRISSÍTÉSI TÖRTÉNET
+
+**Utolsó frissítés:** 2025-11-22
+**Commit:** TBD (frissítés után)
+**Verzió:** 1.3
+
+### Frissítési Történet
+- **v1.3** (2025-11-22): Resilience & Reliability követelmények hozzáadva (DLQ, Secret Rotation, Durable Functions, Audit Logging)
+- **v1.2** (2025-11-19): Eredeti verzió
+
+---
+
+## 8. INTERAKCIÓS IRÁNYELVEK
 
 * **Hangnem:** Professzionális, megoldásorientált és proaktív.
 * **Nyelv:** Magyar.
@@ -59,3 +107,15 @@ Az AI-nak a következő mezőket kell kinyernie a számlákból (csak Fejléc sz
 * **Kézírás:** Ritka, de ha észlelhető, meg kell jelölni.
 * **Validáció:** Mindig validálja a kinyert adószámokat és dátumokat, ahol lehetséges.
 * **Adatvédelem:** Tartsa tiszteletben a GDPR-t és az adatvédelmet; kezelje óvatosan az érzékeny pénzügyi adatokat.
+
+---
+
+## 8. DOKUMENTÁCIÓ VERZIÓ ÉS FRISSÍTÉSI TÖRTÉNET
+
+**Verzió:** 1.1
+**Utolsó frissítés:** 2025-11-22
+**Commit:** TBD (frissítés után)
+
+### Frissítési Történet
+* **v1.1** (2025-11-22): Resilience & Reliability követelmények (6. szekció) hozzáadva - DLQ, Secret Rotation, Durable Functions, Audit Logging, Exception Handling
+* **v1.0** (2025-11-19): Eredeti verzió

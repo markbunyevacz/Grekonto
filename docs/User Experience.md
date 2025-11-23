@@ -1,5 +1,10 @@
 # USER EXPERIENCE (Felhasználói Élmény)
 
+**Projekt**: Grekonto AI Automatizáció
+**Verzió**: 1.0
+**Utolsó frissítés**: 2025-11-22
+**Commit**: TBD (frissítés után)
+
 Senior BA és UX (User Experience) tervező sapkában elkészítettem a **Level 2-es felhasználói élményre** tervezett felületek vázlatát (Wireframe) és működési leírását.
 
 A vezérelvünk a **"Zero-Training Interface"** volt: azaz, ha leültetünk egy új kollégát a gép elé, 5 perc alatt értse, mit kell tennie, betanítás nélkül.
@@ -367,6 +372,17 @@ Ez megjelenhet egy "Felugró ablakban" (Modal) vagy egy állandó sávban. A Mod
 **Design irányelvek ezekhez a képernyőkhöz:**
 
 1. **Állapotjelzők:** A listákban (Settings, History) mindig használjunk "Badge"-eket (színes kis címkék: Zöld=OK, Sárga=Figyelem, Piros=Hiba), hogy egy pillantással átlátható legyen a rendszer egészsége.
+
+---
+
+## DOKUMENTÁCIÓ VERZIÓ ÉS FRISSÍTÉSI TÖRTÉNET
+
+**Verzió:** 1.0
+**Utolsó frissítés:** 2025-11-22
+**Commit:** TBD (frissítés után)
+
+### Frissítési Történet
+* **v1.0** (2025-11-22): Eredeti verzió - Teljes UX terv dokumentálva
 2. **Validáció:** A Beállítások űrlapnál (3.2) kritikus, hogy a "Mentés" gomb inaktív (szürke) legyen addig, amíg a "Teszt Kapcsolódás" nem volt sikeres. Ne engedjük elmenteni a hibás jelszót!
 3. **Empty States:** Ha a lista üres (pl. nincs még előzmény), ne csak üres fehérséget mutassunk, hanem egy kedves ikont és szöveget: *"Még nincs megjeleníthető adat. Kezdj el dolgozni a Műszerfalon!"*
 

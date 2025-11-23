@@ -1,7 +1,10 @@
 # Tesztelési Útmutató
 
-**Projekt**: Grekonto AI Automatizáció  
+**Projekt**: Grekonto AI Automatizáció
 **Dátum**: 2025-11-22
+**Verzió**: 1.0
+**Utolsó frissítés**: 2025-11-22
+**Commit**: TBD (frissítés után)
 
 ---
 
@@ -145,4 +148,15 @@ curl http://localhost:7071/api/audit-logs
 | DLQ nem működik | Ellenőrizd: Table Storage, Exception handler |
 | Secret Rotation nem működik | Ellenőrizd: Key Vault, KEY_VAULT_NAME env var |
 | Orchestration nem működik | Ellenőrizd: Durable Functions SDK, Activity functions |
+
+---
+
+## DOKUMENTÁCIÓ VERZIÓ ÉS FRISSÍTÉSI TÖRTÉNET
+
+**Verzió:** 1.0
+**Utolsó frissítés:** 2025-11-22
+**Commit:** TBD (frissítés után)
+
+### Frissítési Történet
+* **v1.0** (2025-11-22): Eredeti verzió - Teljes tesztelési útmutató dokumentálva
 

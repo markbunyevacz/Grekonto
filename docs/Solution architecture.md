@@ -1,7 +1,10 @@
 # SENIOR SOLUTION ARCHITECTURE DOCUMENT (SAD)
 
 **Projekt:** Grekonto AI – Prio 1 (Smart Matching & Ingestion)
-**Verzió:** 2.0 (Final BRD v1.2 aligned)
+**Verzió:** 2.1
+**Dátum:** 2025-11-22
+**Utolsó frissítés:** 2025-11-22
+**Commit:** TBD (frissítés után)
 **Készítette:** Senior System Architect
 
 ## 1. RENDSZERDIAGRAM (High-Level Architecture)
@@ -127,3 +130,16 @@ Ahhoz, hogy ezt a rendszert a szállító felépíthesse, a **Grekonto-nak bizto
     * Teszt hozzáférés az AOC-hez.
 
 Ez a terv készen áll a fejlesztők számára a Sprint 1 megkezdéséhez.
+
+---
+
+## DOKUMENTÁCIÓ VERZIÓ ÉS FRISSÍTÉSI TÖRTÉNET
+
+**Verzió:** 2.1
+**Utolsó frissítés:** 2025-11-22
+**Commit:** TBD (frissítés után)
+
+### Frissítési Történet
+* **v2.1** (2025-11-22): Resilience komponensek (DLQ, Secret Rotation, Durable Functions) már implementálva
+* **v2.0** (2025-11-19): Final BRD v1.2 aligned
+* **v1.0** (2025-11-15): Eredeti verzió

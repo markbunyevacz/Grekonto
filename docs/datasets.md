@@ -1,5 +1,10 @@
 # Számla Adatbázisok és Letöltési Linkek
 
+**Projekt**: Grekonto AI Automatizáció
+**Verzió**: 1.0
+**Utolsó frissítés**: 2025-11-22
+**Commit**: TBD (frissítés után)
+
 ## SROIE Dataset (1000 nyugta/számla)
 
 - **Hivatalos letöltés:** [https://rrc.cvc.uab.es/](https://rrc.cvc.uab.es/) - regisztráció után elérhető a dataset
@@ -32,3 +37,14 @@
 
 ---
 *Megjegyzés: Mind a SROIE, FATURA és MIDD nyílt hozzáférésű és ingyenesen letölthető kutatási célokra. A Kaggle és Hugging Face platformok közvetlenül letöltést vagy API-n keresztül történő hozzáférést biztosítanak.*
+
+---
+
+## DOKUMENTÁCIÓ VERZIÓ ÉS FRISSÍTÉSI TÖRTÉNET
+
+**Verzió:** 1.0
+**Utolsó frissítés:** 2025-11-22
+**Commit:** TBD (frissítés után)
+
+### Frissítési Történet
+* **v1.0** (2025-11-22): Eredeti verzió - Datasets linkek dokumentálva

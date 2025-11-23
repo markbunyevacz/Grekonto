@@ -1,5 +1,10 @@
 # TO-BE PROCESS (Jövőbeli Folyamat)
 
+**Projekt**: Grekonto AI Automatizáció
+**Verzió**: 1.0
+**Utolsó frissítés**: 2025-11-22
+**Commit**: TBD (frissítés után)
+
 A korábbi egyeztetések és a technikai tervezés alapján összeállítottam a **Jövőbeli Folyamat (TO-BE Process)** leírását. Ez a leírás azt mutatja be, hogyan fog kinézni a napi munka a rendszer élesítése után, felhasználói szemszögből.
 
 A folyamatot 4 logikai lépésre bontottam. A legfontosabb változás, hogy a **manuális keresgélés és párosítás helyett a rendszer előkészít, az ember pedig csak dönt.**
@@ -96,3 +101,14 @@ A képernyő ketté van osztva:
 | **Fókusz** | Adminisztráció és fájlmozgatás. | Csak a **problémás esetek** kezelése. |
 
 Ez a folyamat biztosítja, hogy a Grekonto által kért "Level 2" felhasználói élmény megvalósuljon, a "Barna borítékos" ügyfelek problémája megoldódjon, és a munka oroszlánrészét az algoritmus végezze el.
+
+---
+
+## DOKUMENTÁCIÓ VERZIÓ ÉS FRISSÍTÉSI TÖRTÉNET
+
+**Verzió:** 1.0
+**Utolsó frissítés:** 2025-11-22
+**Commit:** TBD (frissítés után)
+
+### Frissítési Történet
+* **v1.0** (2025-11-22): Eredeti verzió - Teljes TO-BE folyamat dokumentálva

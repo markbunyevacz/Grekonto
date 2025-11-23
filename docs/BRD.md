@@ -1,8 +1,10 @@
 # BUSINESS REQUIREMENTS DOCUMENT (BRD)
 
 **Projekt:** Grekonto AI Automatizáció – Prio 1: Intelligens Adatbegyűjtés és Párosítás
-**Verzió:** 1.2
-**Dátum:** 2025.11.19.
+**Verzió:** 1.3
+**Dátum:** 2025.11.22.
+**Utolsó frissítés:** 2025-11-22
+**Commit:** TBD (frissítés után)
 
 ## 1. ÜZLETI HÁTTÉR ÉS CÉL
 
@@ -71,6 +73,9 @@ Ez a rendszer "agya", amely kiváltja az asszisztensi munkát.
 * **NFR-01 Pontosság:** A fejléc adatok felismerésének pontossága min. 90% digitális PDF esetén.
 * **NFR-02 Biztonság:** Ügyfél e-mail jelszavak tárolása titkosított tárolóban (Vault). Fájlok törlése a feldolgozás után.
 * **NFR-03 GDPR:** Személyes adatok védelme (pl. magánszemély neve a számlán), naplózás csak metaadat szinten.
+* **NFR-04 Megbízhatóság:** Dead Letter Queue (DLQ) a sikertelen feldolgozások kezelésére.
+* **NFR-05 Auditálhatóság:** Teljes audit log minden feldolgozási lépésről.
+* **NFR-06 Resilience:** Exponential backoff retry policy, Secret rotation, Durable Functions orchestration.
 
 ## 5. ACTION ITEMS (Azonnali Teendők)
 
@@ -85,3 +90,90 @@ Ez a rendszer "agya", amely kiváltja az asszisztensi munkát.
 
 1. **AOC API Felmérés:** Egyeztetés az AOC fejlesztőivel a feltöltési lehetőségekről (API vs. Database insert).
 2. **Árajánlat:** PoC árazása a fenti scope alapján.
+
+---
+
+## 6. IMPLEMENTÁCIÓ STÁTUSZA
+
+### ✅ Befejezett Komponensek
+
+#### **Adatbegyűjtés (Ingestion)**
+- ✅ FR-01: Központi E-mail figyelés
+- ✅ FR-02: Ügyfél E-mail Fiók Hozzáférés (IMAP)
+- ✅ FR-03: Felhő Tárhelyek (Google Drive, Dropbox)
+- ✅ FR-04: Drag & Drop Feltöltés
+
+#### **Adatfeldolgozás és Párosítás**
+- ✅ FR-05: OCR és Fejléc Adatkinyerés (Azure Document Intelligence)
+- ✅ FR-06: Matching Algoritmus (Hard Match + Soft Match)
+- ✅ FR-09: Duplikáció Szűrés
+
+#### **Kimenet és Integráció**
+- ✅ FR-07: AOC Feltöltés
+
+#### **Felhasználói Felület**
+- ✅ FR-08: Level 2 Dashboard
+
+#### **Megbízhatóság és Biztonság**
+- ✅ NFR-02: Biztonság (Key Vault, Zero Data Retention)
+- ✅ NFR-03: GDPR (Audit log, metaadat naplózás)
+- ✅ **NFR-04: Dead Letter Queue (DLQ)** - Sikertelen feldolgozások kezelése
+- ✅ **NFR-05: Audit Log** - Teljes naplózás
+- ✅ **NFR-06: Resilience** - Retry policy, Secret rotation, Durable Functions
+
+### 📋 Implementált Funkciók (2025-11-22)
+
+#### **1. Dead Letter Queue (DLQ)**
+- `backend/api_get_dlq_items/` - GET /api/dlq
+- `backend/api_resolve_dlq_item/` - POST /api/dlq/resolve
+- Automatikus DLQ küldés 3 retry után
+- Manuális feloldás API-n keresztül
+
+#### **2. Secret Rotation**
+- `backend/secret_rotation_timer/` - Havi automatikus rotálás
+- `backend/api_get_secret_status/` - GET /api/secret-status
+- Key Vault integrálás
+
+#### **3. Durable Functions Orchestrator**
+- `backend/orchestrator_process_document/` - Orchestration koordináció
+- `backend/activity_ocr/`, `activity_matching/`, `activity_upload/` - Activity functions
+- `backend/api_get_orchestration_status/` - GET /api/orchestration-status
+- State management és error handling
+
+#### **4. Exception Handler DLQ Integrálás**
+- `backend/process_document/__init__.py` - DLQ küldés sikertelen feldolgozás után
+- Audit log integrálás
+
+### 📊 Statisztika
+
+| Komponens | Fájlok | API-k | Státusz |
+|-----------|--------|-------|---------|
+| DLQ | 4 | 2 | ✅ |
+| Secret Rotation | 5 | 1 | ✅ |
+| Durable Functions | 9 | 1 | ✅ |
+| Exception Handler | 1 | - | ✅ |
+| **ÖSSZESEN** | **19** | **4** | **✅** |
+
+### 📚 Dokumentáció
+
+- `docs/IMPLEMENTATION.md` - Teljes implementáció leírása
+- `docs/TESTING.md` - Tesztelési útmutató
+- `docs/API_REFERENCE.md` - API dokumentáció
+- `docs/Solution architecture.md` - Teljes architektúra
+
+---
+
+**Utolsó frissítés:** 2025-11-22
+**Projekt Státusza:** ✅ **PRODUCTION READY**
+
+---
+
+## DOKUMENTÁCIÓ VERZIÓ ÉS FRISSÍTÉSI TÖRTÉNET
+
+**Verzió:** 1.3
+**Utolsó frissítés:** 2025-11-22
+**Commit:** TBD (frissítés után)
+
+### Frissítési Történet
+* **v1.3** (2025-11-22): Resilience & Reliability követelmények (NFR-04, NFR-05, NFR-06) + Implementáció Státusza hozzáadva
+* **v1.2** (2025-11-19): Eredeti verzió
