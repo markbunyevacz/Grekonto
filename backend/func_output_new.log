@@ -1,0 +1,263 @@
+'local.settings.json' found in root directory (C:\Users\Admin\.cursor\Grekonto\backend).
+Resolving worker runtime to 'python'.
+Found Python version 3.14.0 (py).
+
+
+Azure Functions Core Tools
+Core Tools Version:       4.5.0+e74aae22c9630777c9f58354f290a6e214218546 (64-bit)
+Function Runtime Version: 4.1044.400.25520
+
+[2025-11-23T21:38:34.702Z] Attempt to remove module cache for google._upb but failed with 'google'. Using the original module cache.[2025-11-23T21:38:34.708Z] Attempt to remove module cache for google._upb but failed with 'google'. Using the original module cache.
+
+[2025-11-23T21:38:43.563Z] Durable Functions Distributed Tracing V2 is GA now! Learn how to enable the feature by visiting aka.ms/durable-distributed-tracing. To disable this message, you can configure your distributed trace version to "V2" or "None".
+[2025-11-23T21:38:44.282Z] Worker process started and initialized.
+[2025-11-23T21:38:44.407Z] Error in index_function_app. Sys Path:C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend, python-packages Path exists: False[2025-11-23T21:38:44.440Z] Worker failed to load function: 'api_authenticate' with functionId: '788ec08d-645e-45d2-adea-1ca9889c3e43'.
+
+[2025-11-23T21:38:44.514Z] Result: Failure
+Type: 
+Exception: ModuleNotFoundError: No module named 'redis'. Cannot find module. Please check the requirements.txt file for the missing module. For more info, please refer the troubleshooting guide: https://aka.ms/functions-modulenotfound. Current sys.path: C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend
+Stack:   File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\handle_event.py", line 118, in function_load_request
+    func = load_function(
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 50, in call
+    raise extend_exception_message(e, message)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 46, in call
+    return func(*args, **kwargs)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\loader.py", line 94, in load_function
+    mod = importlib.import_module(fullmodname)
+  File "C:\Python314\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "C:\Users\Admin\.cursor\Grekonto\backend\api_authenticate\__init__.py", line 13, in <module>
+    from ..shared.redis_session_store import RedisSessionStore
+  File "C:\Users\Admin\.cursor\Grekonto\backend\shared\redis_session_store.py", line 8, in <module>
+    import redis
+.
+[2025-11-23T21:38:44.730Z] Soon retries will not be supported for function 'Functions.process_document'. For more information, please visit http://aka.ms/func-retry-policies.
+[2025-11-23T21:38:45.243Z] Error in index_function_app. Sys Path:C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend, python-packages Path exists: False[2025-11-23T21:38:45.274Z] Worker failed to load function: 'api_get_orchestration_status' with functionId: '84b126f9-2b41-4674-8841-ea0571a481c3'.
+[2025-11-23T21:38:45.375Z] Result: Failure
+Type: 
+Exception: ModuleNotFoundError: No module named 'azure.durable_functions'. Cannot find module. Please check the requirements.txt file for the missing module. For more info, please refer the troubleshooting guide: https://aka.ms/functions-modulenotfound. Current sys.path: C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend
+Stack:   File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\handle_event.py", line 118, in function_load_request
+    func = load_function(
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 50, in call
+    raise extend_exception_message(e, message)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 46, in call
+    return func(*args, **kwargs)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\loader.py", line 94, in load_function
+    mod = importlib.import_module(fullmodname)
+  File "C:\Python314\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "C:\Users\Admin\.cursor\Grekonto\backend\api_get_orchestration_status\__init__.py", line 2, in <module>
+    import azure.durable_functions as df
+.
+
+
+Functions:
+
+	api_authenticate: [POST] http://localhost:7071/api/authenticate
+
+	api_get_alerts: [GET] http://localhost:7071/api/alerts
+
+	api_get_audit_logs: [GET] http://localhost:7071/api/audit-logs
+
+	api_get_dlq_items: [GET] http://localhost:7071/api/dlq
+
+	api_get_history: [GET] http://localhost:7071/api/get_history
+
+	api_get_job_status: [GET] http://localhost:7071/api/job/{job_id}/status
+
+	api_get_metrics: [GET] http://localhost:7071/api/metrics
+
+	api_get_orchestration_status: [GET] http://localhost:7071/api/orchestration-status
+
+	api_get_secret_status: [GET] http://localhost:7071/api/secret-status
+
+	api_get_status: [GET] http://localhost:7071/api/status/{id}
+
+	api_get_tasks: [GET] http://localhost:7071/api/tasks
+
+	api_manual_search: [GET] http://localhost:7071/api/search
+
+	api_monitoring_status: [GET] http://localhost:7071/api/monitoring-status
+
+	api_process_async: [POST] http://localhost:7071/api/process-async
+
+	api_resolve_dlq_item: [POST] http://localhost:7071/api/dlq/resolve
+
+	api_settings_sources: [GET,POST] http://localhost:7071/api/settings/sources
+
+	api_update_task: [POST] http://localhost:7071/api/tasks/{id}/status
+
+	api_upload_document: [POST] http://localhost:7071/api/upload
+
+	ingestion_timer: timerTrigger
+
+	orchestrator_process_document: orchestrationTrigger
+
+	process_document: blobTrigger
+
+	process_document_orchestrator_starter: blobTrigger
+
+	secret_rotation_timer: timerTrigger
+
+For detailed output, run func with --verbose flag.
+[2025-11-23T21:38:49.173Z] Host lock lease acquired by instance ID '000000000000000000000000D0B637A4'.
+[2025-11-23T21:38:56.374Z] Error in index_function_app. Sys Path:C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend, python-packages Path exists: False
+[2025-11-23T21:38:56.385Z] Worker failed to load function: 'orchestrator_process_document' with functionId: 'bd910b13-19bd-4eb7-becc-5c7244f29adc'.
+[2025-11-23T21:38:56.399Z] Result: Failure
+Type: 
+Exception: ModuleNotFoundError: No module named 'azure.durable_functions'. Cannot find module. Please check the requirements.txt file for the missing module. For more info, please refer the troubleshooting guide: https://aka.ms/functions-modulenotfound. Current sys.path: C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend
+Stack:   File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\handle_event.py", line 118, in function_load_request
+    func = load_function(
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 50, in call
+    raise extend_exception_message(e, message)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 46, in call
+    return func(*args, **kwargs)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\loader.py", line 94, in load_function
+    mod = importlib.import_module(fullmodname)
+  File "C:\Python314\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "C:\Users\Admin\.cursor\Grekonto\backend\orchestrator_process_document\__init__.py", line 2, in <module>
+    import azure.durable_functions as df
+.
+[2025-11-23T21:38:57.027Z] Error in index_function_app. Sys Path:C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend, python-packages Path exists: False
+[2025-11-23T21:38:57.035Z] Worker failed to load function: 'process_document_orchestrator_starter' with functionId: '8905c3bb-88a7-4cd2-abf2-2d882630a3c7'.
+[2025-11-23T21:38:57.047Z] Result: Failure
+Type: 
+Exception: ModuleNotFoundError: No module named 'azure.durable_functions'. Cannot find module. Please check the requirements.txt file for the missing module. For more info, please refer the troubleshooting guide: https://aka.ms/functions-modulenotfound. Current sys.path: C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend
+Stack:   File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\handle_event.py", line 118, in function_load_request
+    func = load_function(
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 50, in call
+    raise extend_exception_message(e, message)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 46, in call
+    return func(*args, **kwargs)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\loader.py", line 94, in load_function
+    mod = importlib.import_module(fullmodname)
+  File "C:\Python314\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "C:\Users\Admin\.cursor\Grekonto\backend\process_document_orchestrator_starter\__init__.py", line 3, in <module>
+    import azure.durable_functions as df
+.
+[2025-11-23T21:39:21.833Z] The listener for function 'Functions.ingestion_timer' was unable to start.
+[2025-11-23T21:39:22.248Z] The listener for function 'Functions.ingestion_timer' was unable to start. Azure.Storage.Blobs: Retry failed after 6 tries (The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded)) (The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded)) (The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded)) (The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded)) (The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded)) (The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded)). System.Net.Http: The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded).
+[2025-11-23T21:43:24.923Z] Executing 'Functions.api_get_tasks' (Reason='This function was programmatically called via the host APIs.', Id=d9ac7dd6-69f4-47af-9515-00d8b1e1f4d0)
+[2025-11-23T21:43:25.575Z] Python HTTP trigger function processed a request to get tasks.
+[2025-11-23T21:43:25.980Z] Using Azurite development storage for tables
+[2025-11-23T21:43:26.363Z] Request URL: 'http://127.0.0.1:10002/devstoreaccount1/Tables'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json;odata=nometadata'
+    'Content-Length': '22'
+    'x-ms-version': 'REDACTED'
+    'DataServiceVersion': 'REDACTED'
+    'Accept': 'application/json;odata=minimalmetadata'
+    'x-ms-client-request-id': '70c5fa06-c8b5-11f0-a31d-00155d7c3a33'
+    'x-ms-date': 'REDACTED'
+    'Date': 'Sun, 23 Nov 2025 21:43:25 GMT'
+    'User-Agent': 'azsdk-python-data-tables/12.7.0 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+[2025-11-23T21:43:26.717Z] Response status: 409
+Response headers:
+    'Server': 'Azurite-Table/3.35.0'
+    'x-ms-error-code': 'TableAlreadyExists'
+    'x-ms-request-id': '6cad4ea8-f66c-44af-ad28-efbb5963765a'
+    'x-ms-version': 'REDACTED'
+    'content-type': 'application/json;odata=minimalmetadata;streaming=true;charset=utf-8'
+    'Date': 'Sun, 23 Nov 2025 21:43:25 GMT'
+    'Connection': 'keep-alive'
+    'Keep-Alive': 'REDACTED'
+    'Transfer-Encoding': 'chunked'
+[2025-11-23T21:43:27.095Z] Request URL: 'http://127.0.0.1:10002/devstoreaccount1/Tasks()?$filter=REDACTED'
+Request method: 'GET'
+Request headers:
+    'x-ms-version': 'REDACTED'
+    'DataServiceVersion': 'REDACTED'
+    'Accept': 'application/json;odata=minimalmetadata'
+    'x-ms-client-request-id': '70cdd24b-c8b5-11f0-a20f-00155d7c3a33'
+    'x-ms-date': 'REDACTED'
+    'Date': 'Sun, 23 Nov 2025 21:43:25 GMT'
+    'User-Agent': 'azsdk-python-data-tables/12.7.0 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+[2025-11-23T21:43:27.430Z] Response status: 200
+Response headers:
+    'Server': 'Azurite-Table/3.35.0'
+    'content-type': 'application/json;odata=minimalmetadata'
+    'x-ms-client-request-id': '70cdd24b-c8b5-11f0-a20f-00155d7c3a33'
+    'x-ms-request-id': '03584252-4296-46f6-a740-ce339f3a787f'
+    'x-ms-version': 'REDACTED'
+    'date': 'Sun, 23 Nov 2025 21:43:25 GMT'
+    'Connection': 'keep-alive'
+    'Keep-Alive': 'REDACTED'
+    'Transfer-Encoding': 'chunked'
+[2025-11-23T21:43:27.793Z] Retrieved 3 pending tasks
+[2025-11-23T21:43:28.456Z] Executed 'Functions.api_get_tasks' (Succeeded, Id=d9ac7dd6-69f4-47af-9515-00d8b1e1f4d0, Duration=3709ms)
+[2025-11-23T21:49:27.943Z] Executing 'Functions.api_upload_document' (Reason='This function was programmatically called via the host APIs.', Id=42dfca29-c946-48e1-98d3-5956d427dcbe)
+[2025-11-23T21:49:27.963Z] ================================================================================
+[2025-11-23T21:49:27.970Z] ­čôĄ UPLOAD REQUEST RECEIVED
+[2025-11-23T21:49:27.976Z] ================================================================================
+[2025-11-23T21:49:27.985Z] ­čôÄ File received via multipart: test.jpg (13 bytes)
+[2025-11-23T21:49:27.989Z] ­čöŹ Starting file validation for: test.jpg
+[2025-11-23T21:49:28.172Z] File signature validation failed: File content does not match JPEG format. File signature validation failed (expected JPEG header)
+[2025-11-23T21:49:28.240Z] ÔŁî FILE VALIDATION FAILED: File content does not match JPEG format. File signature validation failed (expected JPEG header)
+[2025-11-23T21:49:28.273Z] Executed 'Functions.api_upload_document' (Succeeded, Id=42dfca29-c946-48e1-98d3-5956d427dcbe, Duration=344ms)
+[2025-11-23T21:54:58.985Z] Executing 'Functions.api_get_tasks' (Reason='This function was programmatically called via the host APIs.', Id=21317aaa-46f3-43d8-99a4-3baaf532edf9)
+[2025-11-23T21:54:58.999Z] Python HTTP trigger function processed a request to get tasks.
+[2025-11-23T21:54:59.012Z] Using Azurite development storage for tables
+[2025-11-23T21:54:59.018Z] Request URL: 'http://127.0.0.1:10002/devstoreaccount1/Tables'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json;odata=nometadata'
+    'Content-Length': '22'
+    'x-ms-version': 'REDACTED'
+    'DataServiceVersion': 'REDACTED'
+    'Accept': 'application/json;odata=minimalmetadata'
+    'x-ms-client-request-id': '0e1eff30-c8b7-11f0-bf26-00155d7c3a33'
+    'x-ms-date': 'REDACTED'
+    'Date': 'Sun, 23 Nov 2025 21:54:58 GMT'
+    'User-Agent': 'azsdk-python-data-tables/12.7.0 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+[2025-11-23T21:54:59.023Z] Response status: 409
+Response headers:
+    'Server': 'Azurite-Table/3.35.0'
+    'x-ms-error-code': 'TableAlreadyExists'
+    'x-ms-request-id': 'dfb09e97-060b-4576-b18b-3239aefec462'
+    'x-ms-version': 'REDACTED'
+    'content-type': 'application/json;odata=minimalmetadata;streaming=true;charset=utf-8'
+    'Date': 'Sun, 23 Nov 2025 21:54:59 GMT'
+    'Connection': 'keep-alive'
+    'Keep-Alive': 'REDACTED'
+    'Transfer-Encoding': 'chunked'
+[2025-11-23T21:54:59.030Z] Request URL: 'http://127.0.0.1:10002/devstoreaccount1/Tasks()?$filter=REDACTED'
+Request method: 'GET'
+Request headers:
+    'x-ms-version': 'REDACTED'
+    'DataServiceVersion': 'REDACTED'
+    'Accept': 'application/json;odata=minimalmetadata'
+    'x-ms-client-request-id': '0e2076bf-c8b7-11f0-9569-00155d7c3a33'
+    'x-ms-date': 'REDACTED'
+    'Date': 'Sun, 23 Nov 2025 21:54:59 GMT'
+    'User-Agent': 'azsdk-python-data-tables/12.7.0 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+[2025-11-23T21:54:59.037Z] Response status: 200
+Response headers:
+    'Server': 'Azurite-Table/3.35.0'
+    'content-type': 'application/json;odata=minimalmetadata'
+    'x-ms-client-request-id': '0e2076bf-c8b7-11f0-9569-00155d7c3a33'
+    'x-ms-request-id': '8fc86f06-578c-4b14-adc9-47ba88169aa4'
+    'x-ms-version': 'REDACTED'
+    'date': 'Sun, 23 Nov 2025 21:54:59 GMT'
+    'Connection': 'keep-alive'
+    'Keep-Alive': 'REDACTED'
+    'Transfer-Encoding': 'chunked'
+[2025-11-23T21:54:59.041Z] Retrieved 3 pending tasks
+[2025-11-23T21:54:59.047Z] Executed 'Functions.api_get_tasks' (Succeeded, Id=21317aaa-46f3-43d8-99a4-3baaf532edf9, Duration=62ms)
+[2025-11-23T21:56:15.941Z] An unhandled exception has occurred. Host is shutting down.
+[2025-11-23T21:56:15.942Z] Azure.Core: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Http: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Sockets: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot.
+[2025-11-23T21:56:15.985Z] An unhandled exception has occurred. Host is shutting down.
+[2025-11-23T21:56:15.986Z] Azure.Core: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Http: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Sockets: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot.
+[2025-11-23T21:56:17.257Z] An unhandled exception has occurred. Host is shutting down.
+[2025-11-23T21:56:17.258Z] Azure.Core: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Http: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Sockets: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot.
+[2025-11-23T21:56:26.009Z] Host did not shutdown within its allotted time.

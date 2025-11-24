@@ -44,7 +44,7 @@ from ..shared.async_queue_manager import (
     get_queue_manager, JobPriority, JobStatus
 )
 from ..shared.monitoring_service import get_monitoring_service
-from ..shared.table_service import get_table_service
+from ..shared.table_service import get_table_service_client
 
 logger = logging.getLogger(__name__)
 

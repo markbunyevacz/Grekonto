@@ -4,6 +4,7 @@ import json
 from ..shared import storage_client
 from ..shared import table_service
 from ..shared.file_validator import FileValidator, FileValidationError
+from ..shared.async_queue_manager import get_queue_manager, JobPriority
 import datetime
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -77,12 +78,37 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             file_id=file_id,
             stage="UPLOADED",
             status="SUCCESS",
-            message=f"File uploaded to blob storage. Waiting for OCR processing..."
+            message=f"File uploaded to blob storage. Queuing for OCR processing..."
         )
+
+        # Queue the document for async processing
+        logging.info(f"📋 Queuing document for async processing...")
+        try:
+            queue_manager = get_queue_manager()
+            job_id = queue_manager.enqueue_job(
+                document_id=file_id,
+                filename=filename,
+                blob_path=blob_name,
+                file_size=len(file_content),
+                priority=JobPriority.NORMAL,
+                tags={"source": "manual_upload"}
+            )
+            logging.info(f"✅ Document queued successfully! Job ID: {job_id}")
+
+            # Update status with job ID
+            table_service.update_processing_status(
+                file_id=file_id,
+                stage="QUEUED",
+                status="IN_PROGRESS",
+                message=f"Document queued for OCR processing",
+                metadata={"job_id": job_id}
+            )
+        except Exception as e:
+            logging.warning(f"⚠️  Failed to queue document: {e}. Will rely on blob trigger.")
 
         logging.info('='*80)
         logging.info(f'✅ UPLOAD COMPLETED: {filename}')
-        logging.info(f'📊 Next: Blob trigger will start OCR processing')
+        logging.info(f'📊 Next: Async worker will start OCR processing')
         logging.info('='*80)
 
         return func.HttpResponse(

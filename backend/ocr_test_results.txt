@@ -1,0 +1,756 @@
+\U0001f50d SROIE OCR Finomhangolßsi Teszt - VALËDI AZURE FELDOLGOZ┴S
+\U0001f4c1 Adatok: C:\Users\Admin\.cursor\Grekonto\backend\external\ICDAR-2019-SROIE\data
+
+\U0001f4ca Feldolgozandˇ kÚpek: 10
+
+[1/10] Feldolgozßs: 000.jpg
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '7a4a03c9-c918-11f0-a080-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/3a3b973f-7305-47c1-9445-096282373620?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '63'
+    'apim-request-id': '3a3b973f-7305-47c1-9445-096282373620'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:25 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/3a3b973f-7305-47c1-9445-096282373620?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '7a4a03c9-c918-11f0-a080-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '31'
+    'apim-request-id': 'ed0249c0-2ab5-46c0-be35-6fe633278e7a'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:25 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/3a3b973f-7305-47c1-9445-096282373620?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '7a4a03c9-c918-11f0-a080-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '24468'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '54'
+    'apim-request-id': 'ac204100-6eb2-4150-9af7-a4cecc7587ee'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:30 GMT'
+[2/10] Feldolgozßs: 001.jpg
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '8032be76-c918-11f0-bf6f-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/529a2487-af4c-4d91-8807-fd9a4533ec62?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '67'
+    'apim-request-id': '529a2487-af4c-4d91-8807-fd9a4533ec62'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:31 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/529a2487-af4c-4d91-8807-fd9a4533ec62?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '8032be76-c918-11f0-bf6f-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '31'
+    'apim-request-id': 'f63384c3-d8de-45ab-9e4f-b8223d4ae553'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:31 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/529a2487-af4c-4d91-8807-fd9a4533ec62?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '8032be76-c918-11f0-bf6f-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '31624'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '63'
+    'apim-request-id': 'd76741a2-2d8a-4cd5-9919-00b0bb92441e'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:36 GMT'
+[3/10] Feldolgozßs: 002.jpg
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '845bbef0-c918-11f0-a4d3-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/d55e52e8-bb26-4581-8fd9-f44260537afd?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '62'
+    'apim-request-id': 'd55e52e8-bb26-4581-8fd9-f44260537afd'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:39 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/d55e52e8-bb26-4581-8fd9-f44260537afd?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '845bbef0-c918-11f0-a4d3-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '36'
+    'apim-request-id': 'cdbf156f-ce8b-4cd1-b69d-45e75a8f2f8c'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:39 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/d55e52e8-bb26-4581-8fd9-f44260537afd?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '845bbef0-c918-11f0-a4d3-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '28039'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '57'
+    'apim-request-id': 'cf712af5-98cd-4d44-a40e-bbd3d98926d5'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:44 GMT'
+[4/10] Feldolgozßs: 003.jpg
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '8896d4bb-c918-11f0-930f-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/3644f3ef-d7f7-4aab-9070-e082fe5334f2?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '60'
+    'apim-request-id': '3644f3ef-d7f7-4aab-9070-e082fe5334f2'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:45 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/3644f3ef-d7f7-4aab-9070-e082fe5334f2?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '8896d4bb-c918-11f0-930f-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '25'
+    'apim-request-id': '5f79cb46-50bb-4679-9712-bbacca22f618'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:45 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/3644f3ef-d7f7-4aab-9070-e082fe5334f2?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '8896d4bb-c918-11f0-930f-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '25587'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '59'
+    'apim-request-id': '4ead8a01-8074-42b4-a695-d8042ba28565'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:50 GMT'
+[5/10] Feldolgozßs: 004.jpg
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '8cb1590d-c918-11f0-8920-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/9fc1be0b-1714-4301-b4d2-cf3334f41280?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '55'
+    'apim-request-id': '9fc1be0b-1714-4301-b4d2-cf3334f41280'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:52 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/9fc1be0b-1714-4301-b4d2-cf3334f41280?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '8cb1590d-c918-11f0-8920-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '26'
+    'apim-request-id': '32138d5c-8b0d-4add-bb2c-e6fff41cc8be'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:52 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/9fc1be0b-1714-4301-b4d2-cf3334f41280?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '8cb1590d-c918-11f0-8920-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '32003'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '59'
+    'apim-request-id': '8d7c81df-4bdb-4f82-8929-0af539decb79'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:57 GMT'
+[6/10] Feldolgozßs: 005.jpg
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '908e992f-c918-11f0-971c-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/72155502-250b-4bf8-b3be-94645525f3b1?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '93'
+    'apim-request-id': '72155502-250b-4bf8-b3be-94645525f3b1'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:58 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/72155502-250b-4bf8-b3be-94645525f3b1?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '908e992f-c918-11f0-971c-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '24'
+    'apim-request-id': '4cf79516-0cd1-4176-a617-3ec7f081526f'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:32:58 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/72155502-250b-4bf8-b3be-94645525f3b1?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '908e992f-c918-11f0-971c-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '16622'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '63'
+    'apim-request-id': '799089a9-f5a4-4430-8996-9de691a9fce3'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:03 GMT'
+[7/10] Feldolgozßs: 006.jpg
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '94679c5b-c918-11f0-a80f-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/57be8a5a-4ca3-4025-a654-4e025bc229da?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '67'
+    'apim-request-id': '57be8a5a-4ca3-4025-a654-4e025bc229da'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:05 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/57be8a5a-4ca3-4025-a654-4e025bc229da?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '94679c5b-c918-11f0-a80f-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '26'
+    'apim-request-id': 'bba84069-5d1b-45d7-9784-e5902921fb9c'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:05 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/57be8a5a-4ca3-4025-a654-4e025bc229da?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '94679c5b-c918-11f0-a80f-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 429
+Response headers:
+    'Content-Length': '285'
+    'Content-Type': 'application/json'
+    'Retry-After': '15'
+    'apim-request-id': 'fe874b21-496f-440d-ae64-9097d2700eca'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:10 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/57be8a5a-4ca3-4025-a654-4e025bc229da?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '94679c5b-c918-11f0-a80f-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '58389'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '65'
+    'apim-request-id': '12ec5f0f-d800-4169-9852-cbffdbaa1b2d'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:25 GMT'
+[8/10] Feldolgozßs: 007.jpg
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'a1596264-c918-11f0-9fb3-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0c623c31-a99d-4e38-adbe-c05d56d467da?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '55'
+    'apim-request-id': '0c623c31-a99d-4e38-adbe-c05d56d467da'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:26 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0c623c31-a99d-4e38-adbe-c05d56d467da?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'a1596264-c918-11f0-9fb3-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 429
+Response headers:
+    'Content-Length': '284'
+    'Content-Type': 'application/json'
+    'Retry-After': '4'
+    'apim-request-id': 'f928d7f1-5b26-44f2-825a-7e5cc30cf1a9'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:26 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0c623c31-a99d-4e38-adbe-c05d56d467da?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'a1596264-c918-11f0-9fb3-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '17833'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '61'
+    'apim-request-id': 'a7993d75-9f03-493b-a869-35fa7dab8c03'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:30 GMT'
+[9/10] Feldolgozßs: 008.jpg
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'a48f0b92-c918-11f0-b09e-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/6cbc2237-8bb0-461e-85c0-96551da7ccf0?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '64'
+    'apim-request-id': '6cbc2237-8bb0-461e-85c0-96551da7ccf0'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:32 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/6cbc2237-8bb0-461e-85c0-96551da7ccf0?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'a48f0b92-c918-11f0-b09e-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '33'
+    'apim-request-id': '266bd840-58cd-42f3-ac1a-ac64e2c27f2b'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:32 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/6cbc2237-8bb0-461e-85c0-96551da7ccf0?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'a48f0b92-c918-11f0-b09e-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '57519'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '58'
+    'apim-request-id': '817c7a8d-6307-470d-9ec8-029ca5179de4'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:37 GMT'
+[10/10] Feldolgozßs: 009.jpg
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'a889ff30-c918-11f0-abc3-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/49b2f58d-21ee-44e1-abde-5a1ee018ad04?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '95'
+    'apim-request-id': '49b2f58d-21ee-44e1-abde-5a1ee018ad04'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:39 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/49b2f58d-21ee-44e1-abde-5a1ee018ad04?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'a889ff30-c918-11f0-abc3-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '25'
+    'apim-request-id': 'fa16c810-d5f0-46cf-b30c-b57ce9e25568'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:39 GMT'
+Request URL: 'https://grekonto.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/49b2f58d-21ee-44e1-abde-5a1ee018ad04?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'a889ff30-c918-11f0-abc3-00155d7c3a33'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.14.0 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+Response status: 200
+Response headers:
+    'Content-Length': '29411'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '56'
+    'apim-request-id': '71118bf1-f14a-42d9-a3d3-8b52ff2b2cb6'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'Germany West Central'
+    'Date': 'Mon, 24 Nov 2025 09:33:44 GMT'
+
+====================================================================================================
+\U0001f4cb R╔SZLETES EREDM╔NYEK
+====================================================================================================
+
+[1] 000.jpg
+  Ground Truth (JSON):
+    company      = BOOK TA .K (TAMAN DAYA) SDN BHD
+    date         = 25/12/2018
+    address      = NO.53 55,57 & 59, JALAN SAGU 18, TAMAN DAYA, 81100 JOHOR BAHRU, JOHOR.
+    total        = 9.00
+  Extracted (OCR):
+    company      = BOOK TA _K (TAMAN DAYA) SDN BHD
+    date         = 25/12/2018
+    total        = 9.0
+    address      = NO.55 55,57 & 59 JALAN SAGU, JOHOR BAHRU, JOHOR, 81100
+  Pontossßg:
+    company      = 96.77% \u2705
+    date         = 100.00% \u2705
+    address      = 74.19% \u26a0\ufe0f 
+    total        = 85.71% \u2705
+
+[2] 001.jpg
+  Ground Truth (JSON):
+    company      = INDAH GIFT & HOME DECO
+    date         = 19/10/2018
+    address      = 27, JALAN DEDAP 13, TAMAN JOHOR JAYA, 81100 JOHOR BAHRU, JOHOR.
+    total        = 60.30
+  Extracted (OCR):
+    company      = INDAH GIFT & HOME DECO
+    date         = 19/10/2018
+    total        = RM60.31
+    address      = 27 JALAN DEDAP, JOHOR BAHRU, JOHOR, 81100
+  Pontossßg:
+    company      = 100.00% \u2705
+    date         = 100.00% \u2705
+    address      = 65.38% \u274c
+    total        = 66.67% \u274c
+
+[3] 002.jpg
+  Ground Truth (JSON):
+    company      = MR D.I.Y. (JOHOR) SDN BHD
+    date         = 12-01-19
+    address      = LOT 1851-A & 1851-B, JALAN KPB 6, KAWASAN PERINDUSTRIAN BALAKONG, 43300 SERI KEMBANGAN, SELANGOR (MR DIY TESCO TERBAU)
+    total        = 33.90
+  Extracted (OCR):
+    company      = MR D.I.Y. (JOHOR) SDN BHD
+    date         = 12/01/2019
+    total        = RM33.92
+    address      = 6 LOT 1851-A & 1851-B, JALAN KPB, BALAKONG, SELANGOR, 43300
+  Pontossßg:
+    company      = 100.00% \u2705
+    date         = 66.67% \u274c
+    address      = 57.63% \u274c
+    total        = 66.67% \u274c
+
+[4] 003.jpg
+  Ground Truth (JSON):
+    company      = YONGFATT ENTERPRISE
+    date         = 25/12/2018
+    address      = NO 122.124. JALAN DEDAP 13 81100 JOHOR BAHRU
+    total        = 80.90
+  Extracted (OCR):
+    company      = YONGFATT ENTERPRISE
+    date         = 25/12/2018
+    total        = 80.9
+    address      = NO. 122.124 JALAN DEDAP, JOHOR BAHRU, 81100
+  Pontossßg:
+    company      = 100.00% \u2705
+    date         = 100.00% \u2705
+    address      = 78.16% \u26a0\ufe0f 
+    total        = 88.89% \u2705
+
+[5] 004.jpg
+  Ground Truth (JSON):
+    company      = MR D.I.Y. (M) SDN BHD
+    date         = 18-11-18
+    address      = LOT 1851-A & 1851-B, JALAN KPB 6, KAWASAN PERINDUSTRIAN BALAKONG, 43300 SERI KEMBANGAN, SELANGOR (TESCO PUTRA NILAI)
+    total        = 30.90
+  Extracted (OCR):
+    company      = MR D.I.Y. (M) SDN BHD
+    date         = 18/11/2018
+    total        = RM30.91
+    address      = 6 LOT 1851-A & 1851-B. JALAN KPB, BALAKONG, 43300
+  Pontossßg:
+    company      = 100.00% \u2705
+    date         = 66.67% \u274c
+    address      = 55.76% \u274c
+    total        = 66.67% \u274c
+
+[6] 005.jpg
+  Ground Truth (JSON):
+    company      = ABC HO TRADING
+    date         = 09/01/2019
+    address      = NO.2&4, JALAN HARMONI 3/2, TAMAN DESA HARMONI. 81100 JOHOR BAHRU JOHOR
+    total        = 31.00
+  Extracted (OCR):
+    company      = ABC HO TRADING
+    date         = 09/01/2019
+    total        = 31.0
+    address      = No.2&4 JALAN HARMONI 3/2,
+TAMAN DESA, HARMONI, JOHOR, 81100
+  Pontossßg:
+    company      = 100.00% \u2705
+    date         = 100.00% \u2705
+    address      = 77.52% \u26a0\ufe0f 
+    total        = 88.89% \u2705
+
+[7] 006.jpg
+  Ground Truth (JSON):
+    company      = SOON HUAT MACHINERY ENTERPRISE
+    date         = 11/01/2019
+    address      = NO.53 JALAN PUTRA 1, TAMAN SRI PUTRA, 81200 JOHOR BAHRU JOHOR
+    total        = 327.00
+  Extracted (OCR):
+    company      = SOON HUAT MACHINERY ENTERPRISE
+    date         = 11/01/2019
+    total        = 327.0
+    address      = JALAN PUTRA 1,
+TAMAN SRI PUTRA., JOHOR BAHRU, JOHOR, 81200
+  Pontossßg:
+    company      = 100.00% \u2705
+    date         = 100.00% \u2705
+    address      = 80.67% \u26a0\ufe0f 
+    total        = 90.91% \u2705
+
+[8] 007.jpg
+  Ground Truth (JSON):
+    company      = S.H.H. MOTOR (SUNGAI RENGIT) SDN. BHD.
+    date         = 23-01-2019
+    address      = NO. 343, JALAN KURAU, SUNGAI RENGIT, 81620 PENGERANG, JOHOR.
+    total        = 20.00
+  Extracted (OCR):
+    company      = S.H.H. MOTOR ( SUNGAI RENGIT ) SDN. BHD.
+( 801580-T )
+    date         = 23/01/2019
+    total        = 20.0
+    address      = No. 343 Jalan Kurau, Sungai Rengit, Johor., 81620
+  Pontossßg:
+    company      = 83.52% \u26a0\ufe0f 
+    date         = 80.00% \u26a0\ufe0f 
+    address      = 77.06% \u26a0\ufe0f 
+    total        = 88.89% \u2705
+
+[9] 008.jpg
+  Ground Truth (JSON):
+    company      = PERNIAGAAN ZHENG HUI
+    date         = 12/02/2018
+    address      = NO.59 JALAN PERMAS 9/5 BANDAR BARU PERMAS JAYA 81760 JOHOR BAHRU
+    total        = 112.45
+  Extracted (OCR):
+    company      = PERNIAGAAN ZHENG HUI
+    date         = 12/02/2018
+    total        = 112.46
+    address      = JALAN PERMAS 9/5, BANDAR BARU PERMAS JAYA, 81760
+  Pontossßg:
+    company      = 100.00% \u2705
+    date         = 100.00% \u2705
+    address      = 82.14% \u26a0\ufe0f 
+    total        = 83.33% \u26a0\ufe0f 
+
+[10] 009.jpg
+  Ground Truth (JSON):
+    company      = GERBANG ALAF RESTAURANTS SDN BHD
+    date         = 18/01/2018
+    address      = LEVEL 6, BANGUNAN TH, DAMANSARA UPTOWN3 NO.3, JALAN SS21/39,47400 PETALING JAYA SELANGOR
+    total        = 26.60
+  Extracted (OCR):
+    company      = Gerbang Alaf Restaurants Sdn Bhd
+    date         = 18/01/2018
+    total        = 1.51
+    address      = Jalan SS21/39,47400, Petaling Jaya, Selangor
+  Pontossßg:
+    company      = 100.00% \u2705
+    date         = 100.00% \u2705
+    address      = 63.64% \u274c
+    total        = 22.22% \u274c
+
+====================================================================================================
+\U0001f4c8 ┴TLAGOS PONTOSS┴G
+====================================================================================================
+  company      = 98.03% \u2705
+  date         = 91.33% \u2705
+  address      = 71.22% \u26a0\ufe0f 
+  total        = 74.88% \u26a0\ufe0f 

@@ -92,12 +92,20 @@ export default function Matcher() {
         </button>
 
         <div className="bg-white rounded-xl shadow-lg overflow-hidden grid grid-cols-2 h-[600px]">
-            {/* Left: Document Preview (Mock) */}
-            <div className="bg-slate-100 p-4 flex items-center justify-center border-r border-slate-200">
-                <div className="text-slate-400 text-center">
-                    <p className="mb-2">Dokumentum előnézet</p>
-                    <p className="text-xs">{task.document_url}</p>
-                </div>
+            {/* Left: Document Preview */}
+            <div className="bg-slate-100 p-4 flex items-center justify-center border-r border-slate-200 overflow-auto">
+                {task.document_url ? (
+                    <img
+                        src={task.document_url}
+                        alt="Document"
+                        className="max-w-full max-h-full object-contain shadow-lg"
+                    />
+                ) : (
+                    <div className="text-slate-400 text-center">
+                        <p className="mb-2">Dokumentum előnézet</p>
+                        <p className="text-xs">Nincs elérhető kép</p>
+                    </div>
+                )}
             </div>
 
             {/* Right: Data & Actions */}

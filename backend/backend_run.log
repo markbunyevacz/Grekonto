@@ -1,0 +1,93 @@
+'local.settings.json' found in root directory (C:\Users\Admin\.cursor\Grekonto\backend).
+Resolving worker runtime to 'python'.
+Found Python version 3.14.0 (py).
+
+
+Azure Functions Core Tools
+Core Tools Version:       4.5.0+e74aae22c9630777c9f58354f290a6e214218546 (64-bit)
+Function Runtime Version: 4.1044.400.25520
+
+[2025-11-24T09:56:21.248Z] Durable Functions Distributed Tracing V2 is GA now! Learn how to enable the feature by visiting aka.ms/durable-distributed-tracing. To disable this message, you can configure your distributed trace version to "V2" or "None".
+[2025-11-24T09:56:21.907Z] Worker process started and initialized.
+[2025-11-24T09:56:22.240Z] Soon retries will not be supported for function 'Functions.process_document'. For more information, please visit http://aka.ms/func-retry-policies.
+
+Functions:
+
+	api_authenticate: [POST] http://localhost:7071/api/authenticate
+
+	api_get_alerts: [GET] http://localhost:7071/api/alerts
+
+	api_get_audit_logs: [GET] http://localhost:7071/api/audit-logs
+
+	api_get_dlq_items: [GET] http://localhost:7071/api/dlq
+
+	api_get_history: [GET] http://localhost:7071/api/get_history
+
+	api_get_job_status: [GET] http://localhost:7071/api/job/{job_id}/status
+
+	api_get_metrics: [GET] http://localhost:7071/api/metrics
+
+	api_get_orchestration_status: [GET] http://localhost:7071/api/orchestration-status
+
+	api_get_secret_status: [GET] http://localhost:7071/api/secret-status
+
+	api_get_status: [GET] http://localhost:7071/api/status/{id}
+
+	api_get_tasks: [GET] http://localhost:7071/api/tasks
+
+	api_manual_search: [GET] http://localhost:7071/api/search
+
+	api_monitoring_status: [GET] http://localhost:7071/api/monitoring-status
+
+	api_process_async: [POST] http://localhost:7071/api/process-async
+
+	api_resolve_dlq_item: [POST] http://localhost:7071/api/dlq/resolve
+
+	api_settings_sources: [GET,POST] http://localhost:7071/api/settings/sources
+
+	api_update_task: [POST] http://localhost:7071/api/tasks/{id}/status
+
+	api_upload_document: [POST] http://localhost:7071/api/upload
+
+	ingestion_timer: timerTrigger
+
+	orchestrator_process_document: orchestrationTrigger
+
+	process_document: blobTrigger
+
+	process_document_orchestrator_starter: blobTrigger
+
+	process_queue_worker: timerTrigger
+
+	secret_rotation_timer: timerTrigger
+
+For detailed output, run func with --verbose flag.
+[2025-11-24T09:56:27.733Z] Worker failed to load function: 'api_get_orchestration_status' with functionId: 'aadaa875-10f3-4b4f-833c-021097753f9d'.
+[2025-11-24T09:56:27.736Z] Result: Failure
+Type: 
+Exception: FunctionLoadError: cannot load the api_get_orchestration_status function: type of client binding in function.json "durableClient" does not match its Python annotation "DurableOrchestrationClient"
+Stack:   File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\handle_event.py", line 124, in function_load_request
+    _functions.add_function(
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\functions.py", line 374, in add_function
+    input_types, output_types = self.validate_function_params(
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\functions.py", line 236, in validate_function_params
+    raise FunctionLoadError(
+.
+[2025-11-24T09:56:57.754Z] The listener for function 'Functions.secret_rotation_timer' was unable to start.
+[2025-11-24T09:56:58.085Z] The listener for function 'Functions.secret_rotation_timer' was unable to start. Azure.Core: Retry failed after 6 tries. Retry settings can be adjusted in ClientOptions.Retry or by configuring a custom retry policy in ClientOptions.RetryPolicy. (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)). Azure.Core: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Http: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Sockets: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot.
+[2025-11-24T09:56:59.305Z] The listener for function 'Functions.ingestion_timer' was unable to start.
+[2025-11-24T09:56:59.479Z] The listener for function 'Functions.ingestion_timer' was unable to start. Azure.Core: Retry failed after 6 tries. Retry settings can be adjusted in ClientOptions.Retry or by configuring a custom retry policy in ClientOptions.RetryPolicy. (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)). Azure.Core: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Http: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Sockets: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot.
+[2025-11-24T09:57:00.787Z] The listener for function 'Functions.process_document' was unable to start.
+[2025-11-24T09:57:00.788Z] The listener for function 'Functions.process_document' was unable to start. Azure.Core: Retry failed after 6 tries. Retry settings can be adjusted in ClientOptions.Retry or by configuring a custom retry policy in ClientOptions.RetryPolicy. (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)). Azure.Core: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Http: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Sockets: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot.
+[2025-11-24T09:57:01.854Z] An unhandled exception has occurred. Host is shutting down.
+[2025-11-24T09:57:01.856Z] Azure.Core: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10001). System.Net.Http: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10001). System.Net.Sockets: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot.
+[2025-11-24T09:57:02.265Z] The listener for function 'Functions.process_queue_worker' was unable to start.
+[2025-11-24T09:57:02.277Z] The listener for function 'Functions.process_queue_worker' was unable to start. Azure.Core: Retry failed after 6 tries. Retry settings can be adjusted in ClientOptions.Retry or by configuring a custom retry policy in ClientOptions.RetryPolicy. (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)). Azure.Core: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Http: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Sockets: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot.
+[2025-11-24T09:57:02.768Z] The listener for function 'Functions.orchestrator_process_document' was unable to start.
+[2025-11-24T09:57:02.772Z] The listener for function 'Functions.orchestrator_process_document' was unable to start. Azure.Core: Retry failed after 6 tries. Retry settings can be adjusted in ClientOptions.Retry or by configuring a custom retry policy in ClientOptions.RetryPolicy. (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)) (Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000)). Azure.Core: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Http: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot. (127.0.0.1:10000). System.Net.Sockets: Nem hozhat├│ l├ętre kapcsolat, mert a c├ęlsz├ím├şt├│g├ęp m├ír visszautas├ştotta a kapcsolatot.
+[2025-11-24T09:57:02.885Z] The listener for function 'Functions.process_document' was unable to start.[2025-11-24T09:57:02.886Z] The listener for function 'Functions.ingestion_timer' was unable to start.
+[2025-11-24T09:57:02.887Z] The listener for function 'Functions.ingestion_timer' was unable to start. Azure.Core: The operation was canceled.
+
+[2025-11-24T09:57:02.892Z] The listener for function 'Functions.process_document' was unable to start. Microsoft.Azure.WebJobs.Extensions.Storage.Blobs: The listener has already been started.
+[2025-11-24T09:57:02.892Z] The listener for function 'Functions.secret_rotation_timer' was unable to start.
+[2025-11-24T09:57:02.900Z] The listener for function 'Functions.secret_rotation_timer' was unable to start. System.Private.CoreLib: A task was canceled.

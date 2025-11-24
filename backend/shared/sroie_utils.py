@@ -29,15 +29,15 @@ def normalize_text(text):
 
 def normalize_date(date_str):
     """
-    Normalize date to YYYY-MM-DD format.
-    SROIE often uses DD/MM/YYYY or various formats.
+    Normalize date to DD/MM/YYYY format (SROIE standard).
+    Accepts various formats and converts to DD/MM/YYYY.
     """
     if not date_str:
         return ""
     try:
-        # Try to parse date and return YYYY-MM-DD
-        dt = parser.parse(str(date_str), dayfirst=True) 
-        return dt.strftime("%Y-%m-%d")
+        # Try to parse date and return DD/MM/YYYY (SROIE format)
+        dt = parser.parse(str(date_str), dayfirst=True)
+        return dt.strftime("%d/%m/%Y")
     except:
         return str(date_str)
 
@@ -58,17 +58,21 @@ def normalize_amount(amount_str):
 def calculate_similarity(a, b, field_type="text"):
     """
     Calculate similarity between two strings using SequenceMatcher.
+    Handles dates in DD/MM/YYYY format, amounts, and text.
     """
     if field_type == "date":
+        # Normalize both dates to DD/MM/YYYY format
         norm_a = normalize_date(a)
         norm_b = normalize_date(b)
     elif field_type == "amount":
+        # Normalize amounts to 2 decimal places
         norm_a = normalize_amount(a)
         norm_b = normalize_amount(b)
     else:
+        # Text comparison (case-insensitive)
         norm_a = normalize_text(a).lower()
         norm_b = normalize_text(b).lower()
-        
+
     return SequenceMatcher(None, norm_a, norm_b).ratio()
 
 def validate_sroie_fields(data):

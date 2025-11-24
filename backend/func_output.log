@@ -1,0 +1,165 @@
+'local.settings.json' found in root directory (C:\Users\Admin\.cursor\Grekonto\backend).
+Resolving worker runtime to 'python'.
+Found Python version 3.14.0 (py).
+
+
+Azure Functions Core Tools
+Core Tools Version:       4.5.0+e74aae22c9630777c9f58354f290a6e214218546 (64-bit)
+Function Runtime Version: 4.1044.400.25520
+
+[2025-11-23T21:29:51.433Z] Attempt to remove module cache for google._upb but failed with 'google'. Using the original module cache.
+[2025-11-23T21:29:51.433Z] Attempt to remove module cache for google._upb but failed with 'google'. Using the original module cache.
+[2025-11-23T21:29:52.942Z] Durable Functions Distributed Tracing V2 is GA now! Learn how to enable the feature by visiting aka.ms/durable-distributed-tracing. To disable this message, you can configure your distributed trace version to "V2" or "None".
+[2025-11-23T21:29:53.129Z] Worker process started and initialized.
+[2025-11-23T21:29:53.162Z] Error in index_function_app. Sys Path:C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend, python-packages Path exists: False
+[2025-11-23T21:29:53.167Z] Worker failed to load function: 'api_authenticate' with functionId: '8706216c-a6c1-4c3c-bc7e-d23bfc677773'.
+[2025-11-23T21:29:53.168Z] Result: Failure
+Type: 
+Exception: ModuleNotFoundError: No module named 'redis'. Cannot find module. Please check the requirements.txt file for the missing module. For more info, please refer the troubleshooting guide: https://aka.ms/functions-modulenotfound. Current sys.path: C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend
+Stack:   File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\handle_event.py", line 118, in function_load_request
+    func = load_function(
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 50, in call
+    raise extend_exception_message(e, message)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 46, in call
+    return func(*args, **kwargs)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\loader.py", line 94, in load_function
+    mod = importlib.import_module(fullmodname)
+  File "C:\Python314\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "C:\Users\Admin\.cursor\Grekonto\backend\api_authenticate\__init__.py", line 13, in <module>
+    from ..shared.redis_session_store import RedisSessionStore
+  File "C:\Users\Admin\.cursor\Grekonto\backend\shared\redis_session_store.py", line 8, in <module>
+    import redis
+.
+[2025-11-23T21:29:53.261Z] Soon retries will not be supported for function 'Functions.process_document'. For more information, please visit http://aka.ms/func-retry-policies.
+[2025-11-23T21:29:53.489Z] Error in index_function_app. Sys Path:C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend, python-packages Path exists: False
+[2025-11-23T21:29:53.493Z] Worker failed to load function: 'api_get_orchestration_status' with functionId: 'c241073a-4b2a-46f0-a516-edacadf55c9c'.
+[2025-11-23T21:29:53.494Z] Result: Failure
+Type: 
+Exception: ModuleNotFoundError: No module named 'azure.durable_functions'. Cannot find module. Please check the requirements.txt file for the missing module. For more info, please refer the troubleshooting guide: https://aka.ms/functions-modulenotfound. Current sys.path: C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend
+Stack:   File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\handle_event.py", line 118, in function_load_request
+    func = load_function(
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 50, in call
+    raise extend_exception_message(e, message)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 46, in call
+    return func(*args, **kwargs)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\loader.py", line 94, in load_function
+    mod = importlib.import_module(fullmodname)
+  File "C:\Python314\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "C:\Users\Admin\.cursor\Grekonto\backend\api_get_orchestration_status\__init__.py", line 2, in <module>
+    import azure.durable_functions as df
+.
+
+Functions:
+
+	api_authenticate: [POST] http://localhost:7071/api/authenticate
+
+	api_get_alerts: [GET] http://localhost:7071/api/alerts
+
+	api_get_audit_logs: [GET] http://localhost:7071/api/audit-logs
+
+	api_get_dlq_items: [GET] http://localhost:7071/api/dlq
+
+	api_get_history: [GET] http://localhost:7071/api/get_history
+
+	api_get_job_status: [GET] http://localhost:7071/api/job/{job_id}/status
+
+	api_get_metrics: [GET] http://localhost:7071/api/metrics
+
+	api_get_orchestration_status: [GET] http://localhost:7071/api/orchestration-status
+
+	api_get_secret_status: [GET] http://localhost:7071/api/secret-status
+
+	api_get_status: [GET] http://localhost:7071/api/status/{id}
+
+	api_get_tasks: [GET] http://localhost:7071/api/tasks
+
+	api_manual_search: [GET] http://localhost:7071/api/search
+
+	api_monitoring_status: [GET] http://localhost:7071/api/monitoring-status
+
+	api_process_async: [POST] http://localhost:7071/api/process-async
+
+	api_resolve_dlq_item: [POST] http://localhost:7071/api/dlq/resolve
+
+	api_settings_sources: [GET,POST] http://localhost:7071/api/settings/sources
+
+	api_update_task: [POST] http://localhost:7071/api/tasks/{id}/status
+
+	api_upload_document: [POST] http://localhost:7071/api/upload
+
+	ingestion_timer: timerTrigger
+
+	orchestrator_process_document: orchestrationTrigger
+
+	process_document: blobTrigger
+
+	process_document_orchestrator_starter: blobTrigger
+
+	secret_rotation_timer: timerTrigger
+
+For detailed output, run func with --verbose flag.
+[2025-11-23T21:29:53.670Z] Error in index_function_app. Sys Path:C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend, python-packages Path exists: False
+[2025-11-23T21:29:53.673Z] Worker failed to load function: 'api_process_async' with functionId: '4b118659-0f4b-459b-82d4-0e5d212d7291'.
+[2025-11-23T21:29:53.674Z] Result: Failure
+Type: 
+Exception: ImportError: cannot import name 'get_table_service' from '__app__.shared.table_service' (C:\Users\Admin\.cursor\Grekonto\backend\shared\table_service.py). Cannot find module. Please check the requirements.txt file for the missing module. For more info, please refer the troubleshooting guide: https://aka.ms/functions-modulenotfound. Current sys.path: C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend
+Stack:   File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\handle_event.py", line 118, in function_load_request
+    func = load_function(
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 50, in call
+    raise extend_exception_message(e, message)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 46, in call
+    return func(*args, **kwargs)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\loader.py", line 94, in load_function
+    mod = importlib.import_module(fullmodname)
+  File "C:\Python314\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1398, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1371, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1342, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 938, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 762, in exec_module
+  File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+  File "C:\Users\Admin\.cursor\Grekonto\backend\api_process_async\__init__.py", line 47, in <module>
+    from ..shared.table_service import get_table_service
+.
+[2025-11-23T21:29:55.413Z] Error in index_function_app. Sys Path:C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend, python-packages Path exists: False
+[2025-11-23T21:29:55.417Z] Worker failed to load function: 'orchestrator_process_document' with functionId: '18b5ea03-b8ed-4b52-9a0e-4b31ccf6f59a'.
+[2025-11-23T21:29:55.418Z] Result: Failure
+Type: 
+Exception: ModuleNotFoundError: No module named 'azure.durable_functions'. Cannot find module. Please check the requirements.txt file for the missing module. For more info, please refer the troubleshooting guide: https://aka.ms/functions-modulenotfound. Current sys.path: C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend
+Stack:   File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\handle_event.py", line 118, in function_load_request
+    func = load_function(
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 50, in call
+    raise extend_exception_message(e, message)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 46, in call
+    return func(*args, **kwargs)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\loader.py", line 94, in load_function
+    mod = importlib.import_module(fullmodname)
+  File "C:\Python314\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "C:\Users\Admin\.cursor\Grekonto\backend\orchestrator_process_document\__init__.py", line 2, in <module>
+    import azure.durable_functions as df
+.
+[2025-11-23T21:29:55.580Z] Error in index_function_app. Sys Path:C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend, python-packages Path exists: False
+[2025-11-23T21:29:55.582Z] Worker failed to load function: 'process_document_orchestrator_starter' with functionId: 'f3198f72-1f6b-4559-bc73-691201d8a648'.
+[2025-11-23T21:29:55.583Z] Result: Failure
+Type: 
+Exception: ModuleNotFoundError: No module named 'azure.durable_functions'. Cannot find module. Please check the requirements.txt file for the missing module. For more info, please refer the troubleshooting guide: https://aka.ms/functions-modulenotfound. Current sys.path: C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64 C:\Python314\python314.zip C:\Python314\DLLs C:\Python314\Lib C:\Python314 C:\Users\Admin\AppData\Roaming\Python\Python314\site-packages C:\Python314\Lib\site-packages C:\Users\Admin\.cursor\Grekonto\backend
+Stack:   File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\handle_event.py", line 118, in function_load_request
+    func = load_function(
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 50, in call
+    raise extend_exception_message(e, message)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\utils\wrappers.py", line 46, in call
+    return func(*args, **kwargs)
+  File "C:\Users\Admin\AppData\Roaming\npm\node_modules\azure-functions-core-tools\bin\workers\python\3.14\WINDOWS\X64\azure_functions_runtime_v1\loader.py", line 94, in load_function
+    mod = importlib.import_module(fullmodname)
+  File "C:\Python314\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "C:\Users\Admin\.cursor\Grekonto\backend\process_document_orchestrator_starter\__init__.py", line 3, in <module>
+    import azure.durable_functions as df
+.
+[2025-11-23T21:29:58.104Z] Host lock lease acquired by instance ID '000000000000000000000000D0B637A4'.
+[2025-11-23T21:30:29.569Z] The listener for function 'Functions.ingestion_timer' was unable to start.
+[2025-11-23T21:30:29.570Z] The listener for function 'Functions.ingestion_timer' was unable to start. Azure.Storage.Blobs: Retry failed after 6 tries (The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded)) (The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded)) (The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded)) (The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded)) (The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded)) (The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded)). System.Net.Http: The response ended prematurely, with at least 127 additional bytes expected. (ResponseEnded).
