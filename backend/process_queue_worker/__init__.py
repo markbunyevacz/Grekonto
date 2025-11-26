@@ -10,6 +10,7 @@ from ..shared import storage_client
 from ..shared import matching_engine
 from ..shared.aoc_client import AOCClient
 from ..shared.ocr_extractor import OCRExtractor
+from ..shared.gemini_extractor import GeminiExtractor
 
 logger = logging.getLogger(__name__)
 
@@ -81,33 +82,45 @@ def _process_job(job_data: dict, queue_manager, delivery_tag) -> None:
         logger.info(f"📥 Downloading blob: {blob_path}")
         blob_content = storage_client.download_from_blob("raw-documents", blob_path)
         
+        # Determine which OCR provider to use (default: azure, can be overridden with OCR_PROVIDER env var)
+        ocr_provider = os.getenv("OCR_PROVIDER", "azure").lower()
+        
         # Update status: OCR started
+        provider_name = "Gemini" if ocr_provider == "gemini" else "Azure Document Intelligence"
         table_service.update_processing_status(
             file_id=file_id,
             stage="OCR_STARTED",
             status="IN_PROGRESS",
-            message="Starting OCR with Azure Document Intelligence"
+            message=f"Starting OCR with {provider_name}"
         )
         
-        # Call Azure Document Intelligence with OCR Extractor - VALÓDI FELDOLGOZÁS
-        endpoint = os.getenv("DOCUMENT_INTELLIGENCE_ENDPOINT") or os.getenv("FORM_RECOGNIZER_ENDPOINT")
-        key = os.getenv("DOCUMENT_INTELLIGENCE_KEY") or os.getenv("FORM_RECOGNIZER_KEY")
-
-        if not endpoint or not key:
-            logger.error("❌ Azure Document Intelligence credentials REQUIRED!")
-            table_service.update_processing_status(
-                file_id=file_id,
-                stage="OCR_FAILED",
-                status="FAILED",
-                message="Azure Document Intelligence credentials missing"
-            )
-            return
-
         try:
-            extractor = OCRExtractor(endpoint, key)
-            ocr_result = extractor.extract_from_invoice(blob_content)
+            if ocr_provider == "gemini":
+                # Use Gemini structured outputs
+                api_key = os.getenv("GOOGLE_API_KEY")
+                model_id = os.getenv("GEMINI_MODEL_ID", "gemini-3-pro-preview")
+                
+                if not api_key:
+                    raise ValueError("GOOGLE_API_KEY environment variable required for Gemini extraction")
+                
+                extractor = GeminiExtractor(api_key=api_key, model_id=model_id)
+                ocr_result = extractor.extract_from_invoice(blob_content, filename=filename)
+                
+                logger.info(f"✅ Gemini extraction completed")
+            else:
+                # Use Azure Document Intelligence (default)
+                endpoint = os.getenv("DOCUMENT_INTELLIGENCE_ENDPOINT") or os.getenv("FORM_RECOGNIZER_ENDPOINT")
+                key = os.getenv("DOCUMENT_INTELLIGENCE_KEY") or os.getenv("FORM_RECOGNIZER_KEY")
 
-            # Map OCR result to our format
+                if not endpoint or not key:
+                    raise ValueError("Azure Document Intelligence credentials required (DOCUMENT_INTELLIGENCE_ENDPOINT and DOCUMENT_INTELLIGENCE_KEY)")
+                
+                extractor = OCRExtractor(endpoint, key)
+                ocr_result = extractor.extract_from_invoice(blob_content)
+                
+                logger.info(f"✅ Azure OCR extraction completed")
+
+            # Map OCR result to our format (both providers return same structure)
             extracted_data = {
                 "vendor": ocr_result.get("company", ""),
                 "amount": ocr_result.get("total", ""),
@@ -116,6 +129,15 @@ def _process_job(job_data: dict, queue_manager, delivery_tag) -> None:
                 "address": ocr_result.get("address", ""),
                 "confidence": ocr_result.get("confidence", 0)
             }
+            
+            # Add additional fields if available (Gemini provides more)
+            if "invoice_number" in ocr_result:
+                extracted_data["invoice_number"] = ocr_result["invoice_number"]
+            if "items" in ocr_result:
+                extracted_data["items"] = ocr_result["items"]
+            if "total_gross_worth" in ocr_result:
+                extracted_data["total_gross_worth"] = ocr_result["total_gross_worth"]
+            
             logger.info(f"✅ OCR completed: {extracted_data}")
         except Exception as e:
             logger.error(f"❌ OCR extraction error: {e}")
